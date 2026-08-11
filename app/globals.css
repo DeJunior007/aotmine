@@ -1,26 +1,90 @@
 @import "tailwindcss";
 
+@theme {
+  --font-display: "Anton", "Arial Narrow", Impact, sans-serif;
+  --font-mono-ui: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --color-bg: #0b0e0c;
+  --color-panel: #111512;
+  --color-ink: #eef1ec;
+  --color-text: #dfe4dd;
+  --color-accent: #7fd68a;
+  --color-accent-bright: #a9e8b1;
+  --color-accent-mid: #5fbe6c;
+  --color-accent-dim: #3e8f4d;
+  --color-accent-deep: #17351f;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  color-scheme: dark;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--color-accent-bright);
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(127, 214, 138, 0.5);
+  }
+  50% {
+    opacity: 0.45;
+    box-shadow: 0 0 0 5px rgba(127, 214, 138, 0);
+  }
+}
+
+@keyframes scan-line {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(1200%);
+  }
+}
+
+.animate-pulse-dot {
+  animation: pulse-dot 2.4s ease-in-out infinite;
+}
+
+.animate-scan {
+  animation: scan-line 9s linear infinite;
+}
+
+/* grade de fundo estilo "blueprint militar" */
+.bg-grid {
+  background-image:
+    radial-gradient(1100px 600px at 78% 8%, rgba(62, 143, 77, 0.16), transparent 70%),
+    radial-gradient(700px 500px at 5% 95%, rgba(23, 53, 31, 0.5), transparent 70%),
+    repeating-linear-gradient(90deg, rgba(127, 214, 138, 0.045) 0 1px, transparent 1px 72px),
+    repeating-linear-gradient(180deg, rgba(127, 214, 138, 0.035) 0 1px, transparent 1px 72px);
+}
+
+/* cantos cortados, no estilo dos paineis do design original */
+.clip-corner-sm {
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+}
+.clip-corner-md {
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+}
+.clip-corner-lg {
+  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+}
+.clip-corner-xl {
+  clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+}
+.clip-corner-btn {
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
 }
