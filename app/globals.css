@@ -19,19 +19,21 @@
   color-scheme: dark;
 }
 
-body {
-  margin: 0;
-  background: var(--color-bg);
-  color: var(--color-text);
-  -webkit-font-smoothing: antialiased;
-}
+@layer base {
+  body {
+    margin: 0;
+    background: var(--color-bg);
+    color: var(--color-text);
+    -webkit-font-smoothing: antialiased;
+  }
 
-a {
-  color: var(--color-accent);
-  text-decoration: none;
-}
-a:hover {
-  color: var(--color-accent-bright);
+  a {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+  a:hover {
+    color: var(--color-accent-bright);
+  }
 }
 
 @keyframes pulse-dot {

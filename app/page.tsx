@@ -1,5 +1,7 @@
+import { cookies } from "next/headers";
 import { CopyAddress } from "@/components/CopyAddress";
 import { EmblemCube } from "@/components/EmblemCube";
+import { DownloadGate } from "@/components/DownloadGate";
 import { HeroReveal, RevealSection, RevealStagger, RevealItem } from "@/components/Reveal";
 
 const SERVER_ADDRESS = "minecraft.smartcal.com.br";
@@ -19,52 +21,93 @@ const STEPS = [
     title: "Instale o TLauncher",
     body: (
       <>
-        Baixe em{" "}
+        Baixe direto do site oficial{" "}
         <a href="https://tlauncher.org" target="_blank" rel="noopener noreferrer">
           tlauncher.org
         </a>{" "}
-        e faça a instalação normal.
+        — cuidado com clones em outros sites.
       </>
     ),
+    tips: [
+      "Escolha a versão certa pro seu sistema (Windows, Linux ou Mac).",
+      'Se o Windows/antivírus reclamar, é normal — o TLauncher não passa pela verificação da Microsoft. Clique em "Mais informações" → "Executar assim mesmo".',
+      "Não precisa de conta Microsoft/Mojang. Escolha um apelido e pronto, é modo offline.",
+    ],
   },
   {
     n: "02",
     title: "Baixe o modpack",
-    body: "Use o botão lá em cima. São 126 MB, no Wi-Fi é rápido.",
+    body: "Use o botão lá em cima. São 126 MB — no Wi-Fi, menos de 1 minuto.",
+    tips: [
+      "O download pede a senha do Batalhão de Exploração primeiro — ela foi compartilhada no grupo.",
+      'Se o navegador avisar que o arquivo "pode ser perigoso", é falso positivo comum com .zip grandes. Pode confiar.',
+    ],
   },
   {
     n: "03",
     title: "Extraia o .zip",
     body: (
       <>
-        Dentro tem duas pastas: <Code>mods</Code> e <Code>config</Code>.
+        Clique com o botão direito no arquivo baixado → <Strong>Extrair aqui</Strong> (ou{" "}
+        <Strong>Extract All</Strong> no Windows).
       </>
     ),
+    tips: [
+      <>
+        Confira que apareceram duas pastas: <Code>mods</Code> e <Code>config</Code>.
+      </>,
+      "Se aparecer só uma pasta com o nome do zip por fora, entre nela — as duas pastas certas estão lá dentro.",
+    ],
   },
   {
     n: "04",
     title: "Crie um perfil Fabric",
     body: (
       <>
-        No TLauncher, novo perfil com Minecraft <Strong>1.21.1</Strong> e loader{" "}
-        <Strong>Fabric</Strong>. Rode uma vez pra gerar a pasta.
+        No TLauncher, abra a tela de perfis (ícone de engrenagem) →{" "}
+        <Strong>Novo perfil</Strong>.
       </>
     ),
+    tips: [
+      <>
+        Versão: <Strong>1.21.1</Strong> exatamente — não pegue 1.21 ou 1.21.2 por engano.
+      </>,
+      <>
+        Loader: <Strong>Fabric</Strong> (não Forge, não Quilt).
+      </>,
+      "Salve e dê o play uma vez só pra ele gerar a pasta do perfil. Pode fechar assim que o menu do jogo abrir.",
+    ],
   },
   {
     n: "05",
     title: "Copie mods e config",
-    body: "Jogue o conteúdo das duas pastas dentro da pasta do perfil, substituindo o que pedir.",
+    body: "Ache a pasta desse perfil e jogue o conteúdo das duas pastas do zip dentro dela, substituindo o que pedir.",
+    tips: [
+      <>
+        Caminho padrão: <Code>%appdata%/.minecraft</Code> no Windows, ou{" "}
+        <Code>~/.minecraft</Code> no Linux/Mac — ou clique em &ldquo;Abrir pasta&rdquo; nas
+        configurações do perfil, dentro do próprio TLauncher.
+      </>,
+      <>
+        Copie o <Strong>conteúdo</Strong> de <Code>mods</Code> e <Code>config</Code>, não as
+        pastas em si.
+      </>,
+    ],
   },
   {
     n: "06",
     title: "Entre no servidor",
     body: (
       <>
-        Abra o jogo no perfil, Multiplayer → Adicionar servidor →{" "}
+        Abra o jogo nesse perfil, <Strong>Multiplayer</Strong> →{" "}
+        <Strong>Adicionar servidor</Strong> →{" "}
         <Code className="text-accent">{SERVER_ADDRESS}</Code>
       </>
     ),
+    tips: [
+      "Use o botão de copiar endereço lá em cima pra não errar de digitar.",
+      "O primeiro carregamento do mundo costuma ser mais lento (baixando os assets dos mods). Se cair no meio, tenta entrar de novo.",
+    ],
   },
 ];
 
@@ -88,7 +131,10 @@ function TagPill({ children }: { children: React.ReactNode }) {
   );
 }
 
-export default function Home() {
+export default async function Home() {
+  const jar = await cookies();
+  const unlocked = jar.get("paradis_clearance")?.value === "1";
+
   return (
     <div className="bg-grid relative min-h-screen overflow-hidden px-[22px] font-mono-ui text-text">
       <div className="animate-scan pointer-events-none absolute inset-0 h-[3px] bg-linear-to-b from-accent/7 to-transparent" />
@@ -199,12 +245,16 @@ export default function Home() {
               </span>
               <span className="text-[9px] tracking-[0.16em] text-text/30">{"// 126 MB"}</span>
             </div>
-            <a
-              href={DOWNLOAD_URL}
-              className="clip-corner-btn block bg-linear-to-b from-accent to-accent-mid px-4 py-4.75 text-center text-[14px] font-semibold tracking-[0.14em] text-[#08120a] uppercase transition-[box-shadow,transform] duration-250 hover:-translate-y-px hover:shadow-[0_0_38px_rgba(127,214,138,0.42)]"
-            >
-              ↓ Baixar o modpack (.zip)
-            </a>
+            {unlocked ? (
+              <a
+                href={DOWNLOAD_URL}
+                className="clip-corner-btn block bg-linear-to-b from-accent to-accent-mid px-4 py-4.75 text-center text-[14px] font-semibold tracking-[0.14em] text-[#08120a] uppercase transition-[box-shadow,transform] duration-250 hover:-translate-y-px hover:shadow-[0_0_38px_rgba(127,214,138,0.42)]"
+              >
+                ↓ Baixar o modpack (.zip)
+              </a>
+            ) : (
+              <DownloadGate />
+            )}
             <div className="flex flex-wrap gap-3.5 text-[10px] tracking-[0.16em] text-text/45">
               <span>126 MB</span>
               <span>58 MODS</span>
@@ -279,6 +329,19 @@ export default function Home() {
                     {step.title}
                   </div>
                   <div className="text-[13px] leading-[1.7] text-text/70">{step.body}</div>
+                  {step.tips && (
+                    <ul className="mt-2.5 flex flex-col gap-1.5">
+                      {step.tips.map((tip, i) => (
+                        <li
+                          key={i}
+                          className="flex gap-2 text-[12px] leading-[1.65] text-text/50"
+                        >
+                          <span className="text-accent/60">›</span>
+                          <span>{tip}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
               </RevealItem>
             ))}
