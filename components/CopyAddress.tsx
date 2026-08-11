@@ -2,6 +2,7 @@
 
 import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { DecryptText } from "./DecryptText";
 
 export function CopyAddress({ address }: { address: string }) {
   const [copied, setCopied] = useState(false);
@@ -22,7 +23,7 @@ export function CopyAddress({ address }: { address: string }) {
     <div className="clip-corner-lg flex flex-wrap items-center gap-2.5 border border-accent/20 bg-bg/80 px-3.5 py-3">
       <span className="text-[13px] text-accent-dim">&gt;_</span>
       <code className="min-w-[170px] flex-1 break-all font-mono-ui text-[15px] font-semibold text-ink">
-        {address}
+        <DecryptText text={address} duration={550} />
       </code>
       <motion.button
         type="button"

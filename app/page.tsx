@@ -1,10 +1,11 @@
 import { cookies } from "next/headers";
 import { CopyAddress } from "@/components/CopyAddress";
 import { EmblemCube } from "@/components/EmblemCube";
-import { DownloadGate } from "@/components/DownloadGate";
+import { AccessGate } from "@/components/AccessGate";
+import { DecryptReveal } from "@/components/DecryptReveal";
 import { HeroReveal, RevealSection, RevealStagger, RevealItem } from "@/components/Reveal";
 
-const SERVER_ADDRESS = "minecraft.smartcal.com.br";
+const SERVER_ADDRESS = "minecraft.smartcal.com.br:25565";
 const DOWNLOAD_URL = "https://minecraft.smartcal.com.br/danny-aot-modpack.zip";
 
 const MODS = [
@@ -212,57 +213,61 @@ export default async function Home() {
           <StatusBadge dot="bg-accent-dim">PARADIS NODE</StatusBadge>
         </RevealSection>
 
-        {/* endereco + download */}
-        <RevealStagger className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          <RevealItem
-            className="clip-corner-lg border border-accent/22 p-5.5"
-            style={{
-              background: "linear-gradient(160deg, rgba(21,26,22,.92), rgba(11,14,12,.92))",
-            }}
-          >
-            <div className="mb-4 flex items-center justify-between gap-2.5">
-              <span className="text-[10px] font-semibold tracking-[0.2em] text-accent">
-                ENDEREÇO DO SERVIDOR
-              </span>
-              <span className="text-[9px] tracking-[0.16em] text-text/30">{"// ACTIVE"}</span>
-            </div>
-            <CopyAddress address={SERVER_ADDRESS} />
-            <div className="mt-3.5 flex items-center gap-2 text-[10px] font-semibold tracking-[0.18em] text-text/50">
-              <span className="animate-pulse-dot h-1.5 w-1.5 rounded-full bg-accent" />
-              ONLINE 24/7
-            </div>
-          </RevealItem>
-
-          <RevealItem
-            className="clip-corner-lg flex flex-col gap-4 border border-accent/22 p-5.5"
-            style={{
-              background: "linear-gradient(160deg, rgba(21,26,22,.92), rgba(11,14,12,.92))",
-            }}
-          >
-            <div className="flex items-center justify-between gap-2.5">
-              <span className="text-[10px] font-semibold tracking-[0.2em] text-accent">
-                DOWNLOAD DO MODPACK
-              </span>
-              <span className="text-[9px] tracking-[0.16em] text-text/30">{"// 126 MB"}</span>
-            </div>
-            {unlocked ? (
-              <a
-                href={DOWNLOAD_URL}
-                className="clip-corner-btn block bg-linear-to-b from-accent to-accent-mid px-4 py-4.75 text-center text-[14px] font-semibold tracking-[0.14em] text-[#08120a] uppercase transition-[box-shadow,transform] duration-250 hover:-translate-y-px hover:shadow-[0_0_38px_rgba(127,214,138,0.42)]"
+        {/* endereco + download — protegidos por senha */}
+        {unlocked ? (
+          <DecryptReveal>
+            <RevealStagger className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <RevealItem
+                className="clip-corner-lg border border-accent/22 p-5.5"
+                style={{
+                  background: "linear-gradient(160deg, rgba(21,26,22,.92), rgba(11,14,12,.92))",
+                }}
               >
-                ↓ Baixar o modpack (.zip)
-              </a>
-            ) : (
-              <DownloadGate />
-            )}
-            <div className="flex flex-wrap gap-3.5 text-[10px] tracking-[0.16em] text-text/45">
-              <span>126 MB</span>
-              <span>58 MODS</span>
-              <span>FABRIC</span>
-              <span>MINECRAFT 1.21.1</span>
-            </div>
-          </RevealItem>
-        </RevealStagger>
+                <div className="mb-4 flex items-center justify-between gap-2.5">
+                  <span className="text-[10px] font-semibold tracking-[0.2em] text-accent">
+                    ENDEREÇO DO SERVIDOR
+                  </span>
+                  <span className="text-[9px] tracking-[0.16em] text-text/30">{"// ACTIVE"}</span>
+                </div>
+                <CopyAddress address={SERVER_ADDRESS} />
+                <div className="mt-3.5 flex items-center gap-2 text-[10px] font-semibold tracking-[0.18em] text-text/50">
+                  <span className="animate-pulse-dot h-1.5 w-1.5 rounded-full bg-accent" />
+                  ONLINE 24/7
+                </div>
+              </RevealItem>
+
+              <RevealItem
+                className="clip-corner-lg flex flex-col gap-4 border border-accent/22 p-5.5"
+                style={{
+                  background: "linear-gradient(160deg, rgba(21,26,22,.92), rgba(11,14,12,.92))",
+                }}
+              >
+                <div className="flex items-center justify-between gap-2.5">
+                  <span className="text-[10px] font-semibold tracking-[0.2em] text-accent">
+                    DOWNLOAD DO MODPACK
+                  </span>
+                  <span className="text-[9px] tracking-[0.16em] text-text/30">{"// 126 MB"}</span>
+                </div>
+                <a
+                  href={DOWNLOAD_URL}
+                  className="clip-corner-btn block bg-linear-to-b from-accent to-accent-mid px-4 py-4.75 text-center text-[14px] font-semibold tracking-[0.14em] text-[#08120a] uppercase transition-[box-shadow,transform] duration-250 hover:-translate-y-px hover:shadow-[0_0_38px_rgba(127,214,138,0.42)]"
+                >
+                  ↓ Baixar o modpack (.zip)
+                </a>
+                <div className="flex flex-wrap gap-3.5 text-[10px] tracking-[0.16em] text-text/45">
+                  <span>126 MB</span>
+                  <span>58 MODS</span>
+                  <span>FABRIC</span>
+                  <span>MINECRAFT 1.21.1</span>
+                </div>
+              </RevealItem>
+            </RevealStagger>
+          </DecryptReveal>
+        ) : (
+          <RevealSection>
+            <AccessGate />
+          </RevealSection>
+        )}
 
         {/* o que tem dentro */}
         <RevealSection className="mt-13 mb-4 flex items-baseline gap-3">
