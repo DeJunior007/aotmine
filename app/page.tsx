@@ -6,6 +6,7 @@ import { AccessGate } from "@/components/AccessGate";
 import { DecryptReveal } from "@/components/DecryptReveal";
 import { DownloadModal } from "@/components/DownloadModal";
 import { ModCodexModal } from "@/components/modcodex/ModCodexModal";
+import { SecretMods } from "@/components/SecretMods";
 import { HeroReveal, RevealSection, RevealStagger, RevealItem } from "@/components/Reveal";
 import { getModCodex } from "@/lib/modcodex/queries";
 
@@ -38,16 +39,21 @@ const SHADERS = [
   },
 ];
 
+// 9 no total: 6 mostrados direto + 3 "top secret" atras do cadeado
+// (SecretMods) — sao os mods novos do reset (Aether/Deeper and Darker) e o
+// Danny's AoT, o carro-chefe do pack.
+const SECRET_MODS = [
+  { name: "Danny's AoT", tag: "ODM • TITÃS • PARADIS" },
+  { name: "The Aether", tag: "NOVA DIMENSÃO" },
+  { name: "Deeper and Darker", tag: "NOVA DIMENSÃO" },
+];
+
 const MODS = [
-  { name: "Danny's AoT", tag: "ODM • TITÃS • PARADIS", featured: true },
-  { name: "The Aether", tag: "NOVA DIMENSÃO", featured: true },
-  { name: "Deeper and Darker", tag: "NOVA DIMENSÃO", featured: true },
   { name: "Origins", tag: "ESCOLHA SUA CLASSE" },
   { name: "Breath of Nichirin", tag: "DEMON SLAYER" },
   { name: "ThePjotyr's Speedsters", tag: "PODER DE VELOCISTA" },
   { name: "Sodium + Lithium", tag: "PERFORMANCE" },
   { name: "Xaero's Minimap + Worldmap", tag: "MAPA" },
-  { name: "Macaw's", tag: "CONSTRUÇÃO" },
   { name: "Terralith", tag: "EXPLORAÇÃO" },
 ];
 
@@ -235,6 +241,7 @@ export default async function Home() {
                   downloadUrl={DOWNLOAD_URL}
                   installerWindowsUrl={INSTALLER_WINDOWS_URL}
                   installerLinuxUrl={INSTALLER_LINUX_URL}
+                  downloadSizeLabel={DOWNLOAD_SIZE}
                 />
               </div>
 
@@ -304,12 +311,15 @@ export default async function Home() {
                     {`// ${DOWNLOAD_SIZE}`}
                   </span>
                 </div>
-                <a
-                  href={DOWNLOAD_URL}
-                  className="clip-corner-btn block bg-linear-to-b from-accent to-accent-mid px-4 py-4.75 text-center text-[14px] font-semibold tracking-[0.14em] text-[#08120a] uppercase transition-[box-shadow,transform] duration-250 hover:-translate-y-px hover:shadow-[0_0_38px_rgba(127,214,138,0.42)]"
-                >
-                  ↓ Baixar o modpack (.zip)
-                </a>
+                <DownloadModal
+                  unlocked={unlocked}
+                  downloadUrl={DOWNLOAD_URL}
+                  installerWindowsUrl={INSTALLER_WINDOWS_URL}
+                  installerLinuxUrl={INSTALLER_LINUX_URL}
+                  downloadSizeLabel={DOWNLOAD_SIZE}
+                  triggerLabel="↓ Baixar o modpack"
+                  triggerClassName="clip-corner-btn block w-full cursor-pointer bg-linear-to-b from-accent to-accent-mid px-4 py-4.75 text-center text-[14px] font-semibold tracking-[0.14em] text-[#08120a] uppercase transition-[box-shadow,transform] duration-250 hover:-translate-y-px hover:shadow-[0_0_38px_rgba(127,214,138,0.42)]"
+                />
                 <div className="flex flex-wrap gap-3.5 text-[10px] tracking-[0.16em] text-text/45">
                   <span>{DOWNLOAD_SIZE}</span>
                   <span>{TOTAL_MODS} MODS</span>
@@ -337,23 +347,16 @@ export default async function Home() {
         </RevealSection>
 
         <RevealStagger className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <RevealItem className="col-span-1 sm:col-span-2 lg:col-span-3">
+            <SecretMods mods={SECRET_MODS} />
+          </RevealItem>
           {MODS.map((mod) => (
             <RevealItem
               key={mod.name}
-              className={`px-4.5 py-4 transition-colors duration-200 ${
-                mod.featured
-                  ? "border border-accent/40 bg-accent-deep/42 hover:bg-accent-deep/70"
-                  : "border border-accent/16 bg-panel/70 hover:bg-accent-deep/50"
-              }`}
+              className="border border-accent/16 bg-panel/70 px-4.5 py-4 transition-colors duration-200 hover:bg-accent-deep/50"
             >
               <div className="mb-1.75 text-[14px] font-semibold text-ink">{mod.name}</div>
-              <div
-                className={`text-[10px] tracking-[0.14em] ${
-                  mod.featured ? "text-accent" : "text-text/45"
-                }`}
-              >
-                {mod.tag}
-              </div>
+              <div className="text-[10px] tracking-[0.14em] text-text/45">{mod.tag}</div>
             </RevealItem>
           ))}
         </RevealStagger>

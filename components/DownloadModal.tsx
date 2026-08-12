@@ -17,11 +17,18 @@ export function DownloadModal({
   downloadUrl,
   installerWindowsUrl,
   installerLinuxUrl,
+  downloadSizeLabel,
+  triggerLabel = "↓ Baixar agora",
+  triggerClassName = "clip-corner-btn inline-flex cursor-pointer items-center gap-2.5 bg-linear-to-b from-accent to-accent-mid px-5.5 py-3.75 text-[13px] font-semibold tracking-[0.16em] text-[#08120a] uppercase transition-[box-shadow,transform] duration-250 hover:-translate-y-px hover:shadow-[0_0_38px_rgba(127,214,138,0.42)]",
 }: {
   unlocked: boolean;
   downloadUrl: string;
   installerWindowsUrl: string;
   installerLinuxUrl: string;
+  /** ex: "466 MB" — mostrado como hint da opcao de zip cru. Sem isso, some o hint de tamanho. */
+  downloadSizeLabel?: string;
+  triggerLabel?: string;
+  triggerClassName?: string;
 }) {
   const [open, setOpen] = useState(false);
   // so existe document/body no client — evita mismatch de hidratacao no portal
@@ -51,9 +58,9 @@ export function DownloadModal({
         type="button"
         onClick={() => setOpen(true)}
         whileTap={{ scale: 0.98 }}
-        className="clip-corner-btn inline-flex cursor-pointer items-center gap-2.5 bg-linear-to-b from-accent to-accent-mid px-5.5 py-3.75 text-[13px] font-semibold tracking-[0.16em] text-[#08120a] uppercase transition-[box-shadow,transform] duration-250 hover:-translate-y-px hover:shadow-[0_0_38px_rgba(127,214,138,0.42)]"
+        className={triggerClassName}
       >
-        ↓ Baixar agora
+        {triggerLabel}
       </motion.button>
 
       {mounted && createPortal(
@@ -117,7 +124,11 @@ export function DownloadModal({
                       hint="Automático · binário"
                       featured
                     />
-                    <ModalOption href={downloadUrl} label="Modpack (.zip)" hint="Manual · 168 MB" />
+                    <ModalOption
+                      href={downloadUrl}
+                      label="Modpack (.zip)"
+                      hint={downloadSizeLabel ? `Manual · ${downloadSizeLabel}` : "Manual"}
+                    />
                     <p className="m-0 mt-1 text-[10px] leading-relaxed tracking-[0.08em] text-text/32">
                       Não sabe qual escolher? O instalador é o caminho fácil — baixa tudo sozinho.
                     </p>
