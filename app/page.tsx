@@ -1,4 +1,5 @@
 import { cookies } from "next/headers";
+import Image from "next/image";
 import { CopyAddress } from "@/components/CopyAddress";
 import { EmblemCube } from "@/components/EmblemCube";
 import { AccessGate } from "@/components/AccessGate";
@@ -7,6 +8,32 @@ import { HeroReveal, RevealSection, RevealStagger, RevealItem } from "@/componen
 
 const SERVER_ADDRESS = "minecraft.smartcal.com.br:25565";
 const DOWNLOAD_URL = "https://minecraft.smartcal.com.br/danny-aot-modpack.zip";
+const TLAUNCHER_URL = "https://tlauncher.org";
+const INSTALLER_LINUX_URL = "https://minecraft.smartcal.com.br/InstalarDannysAoT-linux";
+const INSTALLER_WINDOWS_URL = "https://minecraft.smartcal.com.br/InstalarDannysAoT.exe";
+
+const SHADERS = [
+  {
+    name: "Rethinking Voxels",
+    weight: "PESADO",
+  },
+  {
+    name: "Complementary Unbound",
+    weight: "PESADO",
+  },
+  {
+    name: "Photon Shader",
+    weight: "PESADO",
+  },
+  {
+    name: "BSL Shaders",
+    weight: "MÉDIO",
+  },
+  {
+    name: "Sildur's Vibrant Shaders",
+    weight: "LEVE",
+  },
+];
 
 const MODS = [
   { name: "Danny's AoT", tag: "ODM • TITÃS • PARADIS", featured: true },
@@ -23,7 +50,7 @@ const STEPS = [
     body: (
       <>
         Baixe direto do site oficial{" "}
-        <a href="https://tlauncher.org" target="_blank" rel="noopener noreferrer">
+        <a href={TLAUNCHER_URL} target="_blank" rel="noopener noreferrer">
           tlauncher.org
         </a>{" "}
         — cuidado com clones em outros sites.
@@ -33,80 +60,70 @@ const STEPS = [
       "Escolha a versão certa pro seu sistema (Windows, Linux ou Mac).",
       'Se o Windows/antivírus reclamar, é normal — o TLauncher não passa pela verificação da Microsoft. Clique em "Mais informações" → "Executar assim mesmo".',
       "Não precisa de conta Microsoft/Mojang. Escolha um apelido e pronto, é modo offline.",
+      "Abra o TLauncher pelo menos uma vez antes do próximo passo (ele precisa criar a pasta do jogo primeiro).",
     ],
   },
   {
     n: "02",
-    title: "Baixe o modpack",
-    body: "Use o botão lá em cima. São 126 MB — no Wi-Fi, menos de 1 minuto.",
+    title: "Baixe o instalador do modpack",
+    body: (
+      <>
+        Não é o .zip dos mods — é um programinha (<Strong>InstalarDannysAoT</Strong>) que faz
+        tudo sozinho: baixa o modpack mais atual, instala os mods e o config certos, configura o
+        Fabric na versão certa e já deixa o servidor cadastrado.
+      </>
+    ),
     tips: [
-      "O download pede a senha do Batalhão de Exploração primeiro — ela foi compartilhada no grupo.",
-      'Se o navegador avisar que o arquivo "pode ser perigoso", é falso positivo comum com .zip grandes. Pode confiar.',
+      <>
+        Linux:{" "}
+        <a href={INSTALLER_LINUX_URL} target="_blank" rel="noopener noreferrer">
+          baixar InstalarDannysAoT
+        </a>
+        .
+      </>,
+      INSTALLER_WINDOWS_URL ? (
+        <>
+          Windows:{" "}
+          <a href={INSTALLER_WINDOWS_URL} target="_blank" rel="noopener noreferrer">
+            baixar InstalarDannysAoT.exe
+          </a>
+          .
+        </>
+      ) : (
+        "Windows: em breve — por enquanto peça pro Deilton rodar/gerar o instalador pra você."
+      ),
+      'Se o antivírus reclamar do executável, é o mesmo alerta genérico de qualquer programa não-assinado — pode liberar.',
     ],
   },
   {
     n: "03",
-    title: "Extraia o .zip",
+    title: "Rode o instalador",
     body: (
       <>
-        Clique com o botão direito no arquivo baixado → <Strong>Extrair aqui</Strong> (ou{" "}
-        <Strong>Extract All</Strong> no Windows).
+        Dá dois cliques nele e espera terminar. No Linux, se não abrir direto, clique com o
+        botão direito → <Strong>Executar como programa</Strong> (ou{" "}
+        <Code>chmod +x</Code> + rodar pelo terminal).
       </>
     ),
     tips: [
-      <>
-        Confira que apareceram duas pastas: <Code>mods</Code> e <Code>config</Code>.
-      </>,
-      "Se aparecer só uma pasta com o nome do zip por fora, entre nela — as duas pastas certas estão lá dentro.",
+      "Ele mostra o progresso do download e cada etapa no terminal/console que abrir junto — é normal demorar um pouco na primeira vez (o pacote tem mais de 150 MB).",
+      'No final aparece "Tudo pronto!" — se aparecer algum "ERRO", tira print e manda no grupo.',
+      "Rodar de novo no futuro (quando o modpack for atualizado) é seguro — ele substitui só o que mudou, sem bagunçar nada que você já tinha.",
     ],
   },
   {
     n: "04",
-    title: "Crie um perfil Fabric",
-    body: (
-      <>
-        No TLauncher, abra a tela de perfis (ícone de engrenagem) →{" "}
-        <Strong>Novo perfil</Strong>.
-      </>
-    ),
-    tips: [
-      <>
-        Versão: <Strong>1.21.1</Strong> exatamente — não pegue 1.21 ou 1.21.2 por engano.
-      </>,
-      <>
-        Loader: <Strong>Fabric</Strong> (não Forge, não Quilt).
-      </>,
-      "Salve e dê o play uma vez só pra ele gerar a pasta do perfil. Pode fechar assim que o menu do jogo abrir.",
-    ],
-  },
-  {
-    n: "05",
-    title: "Copie mods e config",
-    body: "Ache a pasta desse perfil e jogue o conteúdo das duas pastas do zip dentro dela, substituindo o que pedir.",
-    tips: [
-      <>
-        Caminho padrão: <Code>%appdata%/.minecraft</Code> no Windows, ou{" "}
-        <Code>~/.minecraft</Code> no Linux/Mac — ou clique em &ldquo;Abrir pasta&rdquo; nas
-        configurações do perfil, dentro do próprio TLauncher.
-      </>,
-      <>
-        Copie o <Strong>conteúdo</Strong> de <Code>mods</Code> e <Code>config</Code>, não as
-        pastas em si.
-      </>,
-    ],
-  },
-  {
-    n: "06",
     title: "Entre no servidor",
     body: (
       <>
-        Abra o jogo nesse perfil, <Strong>Multiplayer</Strong> →{" "}
-        <Strong>Adicionar servidor</Strong> →{" "}
-        <Code className="text-accent">{SERVER_ADDRESS}</Code>
+        Abra o TLauncher, selecione o perfil <Strong>&ldquo;Danny&apos;s AoT&rdquo;</Strong> (o
+        instalador já criou ele pra você) → <Strong>Play</Strong>. No jogo:{" "}
+        <Strong>Multiplayer</Strong> → o servidor <Code className="text-accent">{SERVER_ADDRESS}</Code>{" "}
+        já deve aparecer pronto na lista.
       </>
     ),
     tips: [
-      "Use o botão de copiar endereço lá em cima pra não errar de digitar.",
+      "Se o servidor não aparecer na lista, adicione manualmente com o botão de copiar endereço lá em cima.",
       "O primeiro carregamento do mundo costuma ser mais lento (baixando os assets dos mods). Se cair no meio, tenta entrar de novo.",
     ],
   },
@@ -137,7 +154,30 @@ export default async function Home() {
   const unlocked = jar.get("paradis_clearance")?.value === "1";
 
   return (
-    <div className="bg-grid relative min-h-screen overflow-hidden px-[22px] font-mono-ui text-text">
+    <>
+      {/* aviso mobile — so o emblema, minimalista, pedindo pra acessar pelo desktop */}
+      <div className="bg-grid flex min-h-screen flex-col items-center justify-center gap-5 px-8 text-center font-mono-ui text-text md:hidden">
+        <div className="clip-corner-md flex h-20 w-20 items-center justify-center border border-accent/45 bg-panel/80">
+          <Image
+            src="/emblem.png"
+            alt="Emblema do servidor"
+            width={34}
+            height={46}
+            style={{
+              filter: "grayscale(1) sepia(1) hue-rotate(64deg) saturate(2.6) brightness(1.05) contrast(1.12)",
+            }}
+          />
+        </div>
+        <p className="m-0 text-[11px] font-semibold tracking-[0.2em] text-accent uppercase">
+          Acesso restrito a desktop
+        </p>
+        <p className="m-0 max-w-[32ch] text-[12px] leading-[1.7] text-text/55">
+          Essa página foi pensada pra tela grande. Abre pelo computador pra ver tudo direito.
+        </p>
+      </div>
+
+      {/* site completo — so em telas de desktop */}
+      <div className="bg-grid relative hidden min-h-screen overflow-hidden px-[22px] font-mono-ui text-text md:block">
       <div className="animate-scan pointer-events-none absolute inset-0 h-[3px] bg-linear-to-b from-accent/7 to-transparent" />
 
       <div className="relative mx-auto max-w-[1180px]">
@@ -209,7 +249,7 @@ export default async function Home() {
         <RevealSection className="flex flex-wrap gap-2 pb-6.5">
           <StatusBadge dot="animate-pulse-dot bg-accent">SERVER ONLINE</StatusBadge>
           <StatusBadge dot="bg-accent-mid">FABRIC 1.21.1</StatusBadge>
-          <StatusBadge dot="bg-accent-dim">58 MODS</StatusBadge>
+          <StatusBadge dot="bg-accent-dim">75 MODS</StatusBadge>
           <StatusBadge dot="bg-accent-dim">PARADIS NODE</StatusBadge>
         </RevealSection>
 
@@ -246,7 +286,7 @@ export default async function Home() {
                   <span className="text-[10px] font-semibold tracking-[0.2em] text-accent">
                     DOWNLOAD DO MODPACK
                   </span>
-                  <span className="text-[9px] tracking-[0.16em] text-text/30">{"// 126 MB"}</span>
+                  <span className="text-[9px] tracking-[0.16em] text-text/30">{"// 168 MB"}</span>
                 </div>
                 <a
                   href={DOWNLOAD_URL}
@@ -255,8 +295,8 @@ export default async function Home() {
                   ↓ Baixar o modpack (.zip)
                 </a>
                 <div className="flex flex-wrap gap-3.5 text-[10px] tracking-[0.16em] text-text/45">
-                  <span>126 MB</span>
-                  <span>58 MODS</span>
+                  <span>168 MB</span>
+                  <span>75 MODS</span>
                   <span>FABRIC</span>
                   <span>MINECRAFT 1.21.1</span>
                 </div>
@@ -301,7 +341,7 @@ export default async function Home() {
             </RevealItem>
           ))}
           <RevealItem className="flex flex-col justify-center border border-dashed border-accent/24 px-4.5 py-4">
-            <div className="mb-1.75 font-display text-[22px] text-accent">+53</div>
+            <div className="mb-1.75 font-display text-[22px] text-accent">+70</div>
             <div className="text-[10px] tracking-[0.14em] text-text/45">OUTROS MODS</div>
           </RevealItem>
         </RevealStagger>
@@ -353,6 +393,40 @@ export default async function Home() {
           </RevealStagger>
         </RevealSection>
 
+        {/* shaders inclusos */}
+        <RevealSection className="mt-13 mb-4 flex items-baseline gap-3">
+          <h2 className="m-0 font-display text-[clamp(24px,4vw,34px)] tracking-[0.03em] text-ink uppercase">
+            Shaders inclusos
+          </h2>
+          <span className="h-px flex-1 bg-linear-to-r from-accent/30 to-transparent" />
+          <span className="text-[9px] tracking-[0.2em] text-accent/55">
+            CLIENT-SIDE ONLY // JA VEM NO INSTALADOR
+          </span>
+        </RevealSection>
+        <p className="mt-0 mb-4 max-w-[70ch] text-[12px] leading-[1.8] text-text/50">
+          O instalador já baixa os 5 junto com o resto — não precisa baixar nada separado.
+          Shader é escolha individual: o servidor nunca processa nada disso (ele nem tem tela
+          pra renderizar), então cada um ativa o que a própria máquina aguenta, sem afetar os
+          outros jogadores. Pra ativar: <Strong>Options</Strong> → <Strong>Video Settings</Strong>{" "}
+          → <Strong>Shader Packs</Strong>, dentro do jogo.
+        </p>
+
+        <RevealStagger className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {SHADERS.map((shader) => (
+            <RevealItem
+              key={shader.name}
+              className="border border-accent/16 bg-panel/70 px-4.5 py-4"
+            >
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-[14px] font-semibold text-ink">{shader.name}</span>
+                <span className="clip-corner-sm border border-accent/22 px-2 py-1 font-mono-ui text-[9px] font-semibold tracking-[0.1em] text-accent">
+                  {shader.weight}
+                </span>
+              </div>
+            </RevealItem>
+          ))}
+        </RevealStagger>
+
         {/* quote + status */}
         <RevealSection className="my-14 grid grid-cols-1 items-center gap-6 border-t border-accent/16 py-8.5 md:grid-cols-2">
           <div>
@@ -377,14 +451,15 @@ export default async function Home() {
         </RevealSection>
 
         <div className="flex flex-wrap justify-between gap-3.5 border-t border-accent/12 py-4.5 pb-8.5 text-[10px] leading-[1.8] tracking-[0.14em] text-text/38">
-          <span>DEILTON&apos;S AOT MODPACK • MINECRAFT 1.21.1 • FABRIC • 58+ MODS</span>
+          <span>DEILTON&apos;S AOT MODPACK • MINECRAFT 1.21.1 • FABRIC • 75+ MODS</span>
           <span>
             FEITO POR <span className="text-accent">DEILTON</span> • AGRADECIMENTOS A KEVIN E
             LUCAS
           </span>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }
 
