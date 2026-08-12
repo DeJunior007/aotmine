@@ -5,6 +5,7 @@ import { EmblemCube } from "@/components/EmblemCube";
 import { AccessGate } from "@/components/AccessGate";
 import { DecryptReveal } from "@/components/DecryptReveal";
 import { DownloadModal } from "@/components/DownloadModal";
+import { ModCodexModal, type ModCategory } from "@/components/ModCodexModal";
 import { HeroReveal, RevealSection, RevealStagger, RevealItem } from "@/components/Reveal";
 
 const SERVER_ADDRESS = "minecraft.smartcal.com.br:25565";
@@ -42,6 +43,125 @@ const MODS = [
   { name: "Xaero's Minimap + Worldmap", tag: "MAPA" },
   { name: "Macaw's", tag: "CONSTRUÇÃO" },
   { name: "Terralith", tag: "EXPLORAÇÃO" },
+];
+
+// catalogo completo — RPG primeiro (Origins decide a classe logo de cara),
+// depois mundo, construcao, QoL/mapa e performance. As bibliotecas de
+// suporte (Fabric API, Kotlin, GeckoLib etc.) viram a ultima aba, so pra
+// quem quiser conferir — nao atrapalham quem quer achar um mod rapido.
+const TOTAL_MODS = 75;
+
+const MOD_CATALOG: ModCategory[] = [
+  {
+    id: "rpg",
+    label: "RPG & Poderes",
+    mods: [
+      {
+        name: "Origins",
+        desc: "Escolha sua origem ao nascer no mundo — cada uma com poderes e limitações diferentes. É o primeiro mod que decide como você vai jogar.",
+      },
+      {
+        name: "Danny's AoT",
+        desc: "ODM Gear, titãs e a dimensão de Paradis — o mod central do modpack.",
+      },
+      { name: "Spell Engine", desc: "Sistema de magias e habilidades ativas em tempo real, com combos." },
+      { name: "Spell Power", desc: "Progressão de poder mágico — complementa o Spell Engine." },
+      { name: "Artifacts", desc: "Itens equipáveis com efeitos únicos, tipo relíquias de RPG." },
+      { name: "Trinkets", desc: "Slots extras de acessório pra equipar artefatos e outros itens." },
+      { name: "Better Combat", desc: "Combos, animações e reações de combate mais fluidas." },
+      { name: "Combat Roll", desc: "Esquiva com rolamento — dodge de verdade, não só andar pra trás." },
+      { name: "Adventurez", desc: "Conteúdo extra de aventura: mobs, itens e progressão." },
+      { name: "Bountiful", desc: "Sistema de contratos — aceite bounties e complete objetivos por recompensa." },
+    ],
+  },
+  {
+    id: "mundo",
+    label: "Exploração & Mundo",
+    mods: [
+      { name: "Terralith", desc: "Biomas e terrenos completamente reformulados — muito mais variedade pra explorar." },
+      { name: "Repurposed Structures", desc: "Estruturas vanilla espalhadas em mais biomas e variações." },
+      { name: "Structory", desc: "Novas estruturas e masmorras escondidas pelo mundo." },
+      { name: "Dungeons Arise", desc: "Masmorras customizadas, maiores e mais perigosas." },
+      { name: "Yung's Better Dungeons", desc: "Masmorras vanilla revisadas — mais interessantes e desafiadoras." },
+      { name: "Yung's Better Strongholds", desc: "Fortalezas revisadas, com layouts novos." },
+      { name: "Waystones", desc: "Marque pontos e teleporte rápido entre eles depois." },
+    ],
+  },
+  {
+    id: "construcao",
+    label: "Construção",
+    mods: [
+      {
+        name: "Macaw's",
+        desc: "Pontes, Portas, Móveis, Cercas, Janelas, Caminhos, Telhados e Alçapões — pacote gigante de blocos decorativos, 8 mods num só.",
+      },
+      { name: "Supplementaries", desc: "Blocos utilitários e decorativos extras (sinos, luminárias, etc.)." },
+      { name: "Chipped", desc: "Blocos decorativos customizáveis com texturas próprias." },
+    ],
+  },
+  {
+    id: "qol",
+    label: "Mapa & Qualidade de vida",
+    mods: [
+      { name: "Xaero's Minimap + Worldmap", desc: "Minimapa e mapa completo do mundo, com waypoints." },
+      { name: "Jade", desc: "Mostra informação do bloco/mob que você mira, tipo um HUD de inspeção." },
+      { name: "Roughly Enough Items (REI)", desc: "Visualizador de receitas e itens — abre com uma tecla." },
+      { name: "Inventory Profiles Next", desc: "Organiza e ordena inventário/baú automaticamente." },
+      { name: "Mouse Tweaks", desc: "Arrasta e solta itens mais rápido com o mouse." },
+      { name: "ModMenu", desc: "Tela central pra configurar todos os mods que têm config." },
+      { name: "Zoomify", desc: "Zoom na câmera com uma tecla." },
+      { name: "Controlify", desc: "Suporte completo a controle (joystick)." },
+      { name: "Better Third Person", desc: "Câmera em terceira pessoa mais suave e configurável." },
+      { name: "Not Enough Animations", desc: "Animações extras do personagem (sentar, rastejar, etc.)." },
+      { name: "AppleSkin", desc: "Mostra saturação e regeneração de fome na tela." },
+      { name: "Traveler's Backpack", desc: "Mochila extra equipável, com upgrades." },
+      { name: "Presence Footsteps", desc: "Sons de passos que mudam com o tipo de piso." },
+      { name: "Sound Physics Remastered", desc: "Áudio realista — eco e abafamento de som por ambiente." },
+      { name: "Bobby", desc: "Mantém chunks carregados de longe no client, visual mais completo." },
+    ],
+  },
+  {
+    id: "performance",
+    label: "Performance",
+    mods: [
+      { name: "Sodium + Lithium", desc: "Motor de renderização e de física otimizados — mais FPS, menos travamento." },
+      { name: "Indium", desc: "Compatibilidade do Sodium com mods que mexem em iluminação." },
+      { name: "Krypton", desc: "Otimiza a rede — menos lag de conexão com o servidor." },
+      { name: "FerriteCore", desc: "Reduz uso de memória RAM do jogo." },
+      { name: "ModernFix", desc: "Correções e otimizações gerais de carregamento." },
+      { name: "C2ME", desc: "Geração de chunks em paralelo — mundo carrega mais rápido." },
+      { name: "EntityCulling", desc: "Para de renderizar entidades que não estão realmente visíveis." },
+    ],
+  },
+  {
+    id: "bibliotecas",
+    label: "Bibliotecas",
+    mods: [
+      { name: "Fabric API" },
+      { name: "Fabric Language Kotlin" },
+      { name: "GeckoLib" },
+      { name: "Player Animation Lib" },
+      { name: "Cloth Config" },
+      { name: "Cardinal Components API" },
+      { name: "Forge Config API Port" },
+      { name: "MidnightLib" },
+      { name: "LibIPN" },
+      { name: "Kambrik" },
+      { name: "Prickle" },
+      { name: "Resourceful Lib" },
+      { name: "Lithostitched" },
+      { name: "Moonlight" },
+      { name: "Bookshelf" },
+      { name: "Puzzles Lib" },
+      { name: "Athena" },
+      { name: "AAA Particles" },
+      { name: "EnchDesc" },
+      { name: "BOMD" },
+      { name: "Continuity" },
+      { name: "Balm" },
+      { name: "Yung's API" },
+    ],
+  },
 ];
 
 const STEPS = [
@@ -341,9 +461,8 @@ export default async function Home() {
               </div>
             </RevealItem>
           ))}
-          <RevealItem className="flex flex-col justify-center border border-dashed border-accent/24 px-4.5 py-4">
-            <div className="mb-1.75 font-display text-[22px] text-accent">+70</div>
-            <div className="text-[10px] tracking-[0.14em] text-text/45">OUTROS MODS</div>
+          <RevealItem>
+            <ModCodexModal categories={MOD_CATALOG} totalJars={TOTAL_MODS} />
           </RevealItem>
         </RevealStagger>
 

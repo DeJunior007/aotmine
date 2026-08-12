@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { AccessGate } from "./AccessGate";
 
@@ -23,6 +24,12 @@ export function DownloadModal({
   installerLinuxUrl: string;
 }) {
   const [open, setOpen] = useState(false);
+  // so existe document/body no client — evita mismatch de hidratacao no portal
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
 
   useEffect(() => {
     if (!open) return;
@@ -49,78 +56,81 @@ export function DownloadModal({
         ↓ Baixar agora
       </motion.button>
 
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-bg/80 px-5 backdrop-blur-sm"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            onClick={() => setOpen(false)}
-          >
+      {mounted && createPortal(
+        <AnimatePresence>
+          {open && (
             <motion.div
-              className="clip-corner-lg relative w-full max-w-[460px] overflow-hidden border border-accent/26 p-6 font-mono-ui sm:p-7"
-              style={{
-                background: "linear-gradient(160deg, rgba(17,21,18,.97), rgba(9,11,10,.98))",
-              }}
-              initial={{ opacity: 0, scale: 0.94, y: 10 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.96, y: 6 }}
-              transition={{ duration: 0.25, ease: "easeOut" }}
-              onClick={(e) => e.stopPropagation()}
+              className="fixed inset-0 z-50 flex items-center justify-center bg-bg/80 px-5 backdrop-blur-sm"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={() => setOpen(false)}
             >
-              <div className="animate-scan pointer-events-none absolute inset-0 h-[2px] bg-linear-to-b from-accent/10 to-transparent" />
+              <motion.div
+                className="clip-corner-lg relative w-full max-w-[460px] overflow-hidden border border-accent/26 p-6 font-mono-ui sm:p-7"
+                style={{
+                  background: "linear-gradient(160deg, rgba(17,21,18,.97), rgba(9,11,10,.98))",
+                }}
+                initial={{ opacity: 0, scale: 0.94, y: 10 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.96, y: 6 }}
+                transition={{ duration: 0.25, ease: "easeOut" }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="animate-scan pointer-events-none absolute inset-0 h-[2px] bg-linear-to-b from-accent/10 to-transparent" />
 
-              <div className="mb-5 flex items-center justify-between gap-2.5">
-                <span className="flex items-center gap-2 text-[10px] font-semibold tracking-[0.2em] text-accent">
-                  <span className="animate-blink-cursor">&gt;_</span> DOWNLOAD
-                </span>
-                <button
-                  type="button"
-                  onClick={() => setOpen(false)}
-                  aria-label="Fechar"
-                  className="text-[13px] text-text/40 transition-colors hover:text-accent"
-                >
-                  ✕
-                </button>
-              </div>
+                <div className="mb-5 flex items-center justify-between gap-2.5">
+                  <span className="flex items-center gap-2 text-[10px] font-semibold tracking-[0.2em] text-accent">
+                    <span className="animate-blink-cursor">&gt;_</span> DOWNLOAD
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setOpen(false)}
+                    aria-label="Fechar"
+                    className="text-[13px] text-text/40 transition-colors hover:text-accent"
+                  >
+                    ✕
+                  </button>
+                </div>
 
-              {unlocked ? (
-                <motion.div
-                  key="unlocked"
-                  initial={{ opacity: 0, filter: "brightness(2)" }}
-                  animate={{ opacity: 1, filter: "brightness(1)" }}
-                  transition={{ duration: 0.45 }}
-                  className="flex flex-col gap-2.5"
-                >
-                  <p className="m-0 mb-1 text-[11px] leading-relaxed tracking-[0.08em] text-text/45">
-                    Escolha como quer instalar:
-                  </p>
-                  <ModalOption
-                    href={installerWindowsUrl}
-                    label="Instalador Windows"
-                    hint="Automático · .exe"
-                    featured
-                  />
-                  <ModalOption
-                    href={installerLinuxUrl}
-                    label="Instalador Linux"
-                    hint="Automático · binário"
-                    featured
-                  />
-                  <ModalOption href={downloadUrl} label="Modpack (.zip)" hint="Manual · 168 MB" />
-                  <p className="m-0 mt-1 text-[10px] leading-relaxed tracking-[0.08em] text-text/32">
-                    Não sabe qual escolher? O instalador é o caminho fácil — baixa tudo sozinho.
-                  </p>
-                </motion.div>
-              ) : (
-                <AccessGate />
-              )}
+                {unlocked ? (
+                  <motion.div
+                    key="unlocked"
+                    initial={{ opacity: 0, filter: "brightness(2)" }}
+                    animate={{ opacity: 1, filter: "brightness(1)" }}
+                    transition={{ duration: 0.45 }}
+                    className="flex flex-col gap-2.5"
+                  >
+                    <p className="m-0 mb-1 text-[11px] leading-relaxed tracking-[0.08em] text-text/45">
+                      Escolha como quer instalar:
+                    </p>
+                    <ModalOption
+                      href={installerWindowsUrl}
+                      label="Instalador Windows"
+                      hint="Automático · .exe"
+                      featured
+                    />
+                    <ModalOption
+                      href={installerLinuxUrl}
+                      label="Instalador Linux"
+                      hint="Automático · binário"
+                      featured
+                    />
+                    <ModalOption href={downloadUrl} label="Modpack (.zip)" hint="Manual · 168 MB" />
+                    <p className="m-0 mt-1 text-[10px] leading-relaxed tracking-[0.08em] text-text/32">
+                      Não sabe qual escolher? O instalador é o caminho fácil — baixa tudo sozinho.
+                    </p>
+                  </motion.div>
+                ) : (
+                  <AccessGate />
+                )}
+              </motion.div>
             </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
     </>
   );
 }
