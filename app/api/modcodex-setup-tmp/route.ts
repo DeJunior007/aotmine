@@ -6,8 +6,6 @@ import { Client } from "pg";
 // SQL inline (nao le supabase/migrations/*.sql em runtime — o tracer de build da
 // Vercel nao garante incluir um arquivo referenciado so por caminho dinamico).
 const MIGRATION_SQL = `
-create extension if not exists "pgcrypto";
-
 create table if not exists mods (
   id uuid primary key default gen_random_uuid(),
   slug text unique not null,
