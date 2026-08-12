@@ -115,6 +115,49 @@
   animation: flicker-soft 6.5s ease-in-out infinite;
 }
 
+@keyframes glow-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 rgba(127, 214, 138, 0);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(127, 214, 138, 0.32);
+  }
+}
+.animate-glow-pulse {
+  animation: glow-pulse 2.8s ease-in-out infinite;
+}
+
+/* anel de "portal" pulsando pra fora, tipo um teleporte ativado */
+@keyframes portal-ping {
+  0% {
+    transform: scale(0.5);
+    opacity: 0.7;
+  }
+  75%,
+  100% {
+    transform: scale(1.7);
+    opacity: 0;
+  }
+}
+.animate-portal-ping {
+  animation: portal-ping 2.6s cubic-bezier(0.2, 0.6, 0.4, 1) infinite;
+}
+
+/* leve flutuacao vertical, pro simbolo do portal parecer suspenso/vivo */
+@keyframes float-soft {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+.animate-float-soft {
+  animation: float-soft 3.2s ease-in-out infinite;
+}
+
 /* grade de fundo estilo "blueprint militar" */
 .bg-grid {
   background-image:

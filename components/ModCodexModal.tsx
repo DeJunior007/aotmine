@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { DecryptText } from "./DecryptText";
 
 export type ModEntry = {
   name: string;
@@ -30,6 +31,14 @@ export function ModCodexModal({
   const [tab, setTab] = useState(categories[0]?.id ?? "");
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState<Selected | null>(null);
+  const [cycle, setCycle] = useState(0);
+
+  // remonta o DecryptText do botao de tempos em tempos — o texto "materializa"
+  // nele mesmo, tipo dado chegando de outro lugar (o tal efeito teletransporte)
+  useEffect(() => {
+    const id = setInterval(() => setCycle((c) => c + 1), 5200);
+    return () => clearInterval(id);
+  }, []);
   // so existe document/body no client — evita mismatch de hidratacao no portal
   const mounted = useSyncExternalStore(
     () => () => {},
@@ -84,14 +93,49 @@ export function ModCodexModal({
       <motion.button
         type="button"
         onClick={() => setOpen(true)}
-        whileHover={{ y: -2 }}
-        whileTap={{ scale: 0.98 }}
-        className="clip-corner-sm flex h-full w-full cursor-pointer flex-col justify-center border border-dashed border-accent/24 px-4.5 py-4 text-left transition-colors duration-200 hover:border-accent/50 hover:bg-accent-deep/25"
+        whileHover={{ y: -3 }}
+        whileTap={{ scale: 0.985 }}
+        className="animate-glow-pulse clip-corner-lg group relative flex w-full cursor-pointer items-center gap-5 overflow-hidden border border-accent/55 bg-linear-to-br from-accent-deep/50 via-panel/70 to-accent-deep/20 px-5.5 py-5 text-left transition-colors duration-200 hover:border-accent sm:px-7"
       >
-        <div className="mb-1.75 font-display text-[22px] text-accent">{"{ }"}</div>
-        <div className="text-[10px] tracking-[0.14em] text-text/45">
-          VER TODOS OS {totalJars} MODS →
+        <span className="animate-scan pointer-events-none absolute inset-0 h-[2px] bg-linear-to-b from-accent/30 to-transparent" />
+
+        {/* cantos de mira, tipo HUD militar */}
+        <span className="animate-flicker-soft pointer-events-none absolute top-2.5 left-2.5 h-3.5 w-3.5 border-t-2 border-l-2 border-accent/70" />
+        <span className="animate-flicker-soft pointer-events-none absolute top-2.5 right-2.5 h-3.5 w-3.5 border-t-2 border-r-2 border-accent/70" />
+        <span className="animate-flicker-soft pointer-events-none absolute bottom-2.5 left-2.5 h-3.5 w-3.5 border-b-2 border-l-2 border-accent/70" />
+        <span className="animate-flicker-soft pointer-events-none absolute bottom-2.5 right-2.5 h-3.5 w-3.5 border-b-2 border-r-2 border-accent/70" />
+
+        {/* portal com aneis de pulso — o "teleporte" */}
+        <div className="animate-float-soft relative flex h-14 w-14 flex-none items-center justify-center sm:h-16 sm:w-16">
+          <span className="animate-portal-ping absolute inset-0 rounded-full border border-accent/60" />
+          <span
+            className="animate-portal-ping absolute inset-0 rounded-full border border-accent/60"
+            style={{ animationDelay: "1.3s" }}
+          />
+          <span className="clip-corner-sm relative z-10 flex h-10 w-10 items-center justify-center border border-accent/50 bg-bg/70 font-display text-[18px] text-accent sm:h-11 sm:w-11 sm:text-[20px]">
+            {"{ }"}
+          </span>
         </div>
+
+        <div className="min-w-0 flex-1">
+          <div className="mb-1 text-[9px] font-semibold tracking-[0.22em] text-accent/60 uppercase">
+            {"mod_codex.sys // acesso rápido"}
+          </div>
+          <DecryptText
+            key={cycle}
+            text={`Ver todos os ${totalJars} mods do modpack`}
+            duration={650}
+            className="block font-display text-[19px] leading-tight tracking-wide text-ink uppercase sm:text-[23px]"
+          />
+          <div className="mt-1.5 text-[11px] leading-snug text-text/50">
+            RPG, exploração, construção, performance e mais — cada mod com dicas e primeiros
+            passos.
+          </div>
+        </div>
+
+        <span className="flex-none font-display text-[26px] text-accent transition-transform duration-200 group-hover:translate-x-1.5">
+          →
+        </span>
       </motion.button>
 
       {mounted &&

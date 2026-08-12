@@ -39,6 +39,7 @@ const SHADERS = [
 
 const MODS = [
   { name: "Danny's AoT", tag: "ODM • TITÃS • PARADIS", featured: true },
+  { name: "Origins", tag: "ESCOLHA SUA CLASSE" },
   { name: "Sodium + Lithium", tag: "PERFORMANCE" },
   { name: "Xaero's Minimap + Worldmap", tag: "MAPA" },
   { name: "Macaw's", tag: "CONSTRUÇÃO" },
@@ -746,10 +747,11 @@ export default async function Home() {
               </div>
             </RevealItem>
           ))}
-          <RevealItem>
-            <ModCodexModal categories={MOD_CATALOG} totalJars={TOTAL_MODS} />
-          </RevealItem>
         </RevealStagger>
+
+        <RevealSection className="mt-3.5">
+          <ModCodexModal categories={MOD_CATALOG} totalJars={TOTAL_MODS} />
+        </RevealSection>
 
         {/* como instalar */}
         <RevealSection className="clip-corner-xl mt-13 border border-accent/20 bg-panel/55 px-6.5 py-7">
