@@ -50,8 +50,8 @@ const MODS = [
 // depois mundo, construcao, QoL/mapa e performance. As bibliotecas de
 // suporte (Fabric API, Kotlin, GeckoLib etc.) viram a ultima aba, so pra
 // quem quiser conferir — nao atrapalham quem quer achar um mod rapido.
-const TOTAL_MODS = 76;
-const DOWNLOAD_SIZE = "222 MB";
+const TOTAL_MODS = 97;
+const DOWNLOAD_SIZE = "406 MB";
 
 const MOD_CATALOG: ModCategory[] = [
   {
@@ -178,6 +178,47 @@ const MOD_CATALOG: ModCategory[] = [
           "Bom jeito de ganhar recursos sem precisar farmar sem rumo nenhum.",
         ],
       },
+      {
+        name: "Simply Swords",
+        desc: "Lanças, glaives, katanas, chakrams e outras armas novas — mais opção de combate corpo a corpo.",
+        firstSteps: [
+          "Craft pelas receitas normais — aparecem no REI junto dos itens vanilla.",
+          "É compatível oficialmente com o Better Combat — os combos novos funcionam com as armas novas também.",
+        ],
+        tips: [
+          "Cada arma tem alcance/velocidade diferente — testa mais de uma pra achar seu estilo.",
+          "Boa opção pra variar contra titã — o ODM Gear cuida da mobilidade, a arma certa cuida do dano.",
+        ],
+      },
+      {
+        name: "More Bows and Arrows",
+        desc: "Cerca de 50 arcos e flechas novos, cada um com característica própria.",
+        firstSteps: [
+          "Craft normal — procura no REI pelo nome do arco.",
+          "Flechas especiais (fogo, veneno, etc) combinam com arcos específicos — confere a descrição do item.",
+        ],
+        tips: ["Bom complemento pro combate corpo a corpo do Simply Swords — cobre o alcance."],
+      },
+      {
+        name: "Progressive Archery",
+        desc: "Cadeia de progressão pro arco, igual ferramenta e espada evoluem por tier.",
+        firstSteps: [
+          "Craft o arco básico e vai fazendo upgrade conforme junta material melhor, igual picareta.",
+          "Integrado com o Trinkets — alguns bônus de arco aparecem nos slots de acessório.",
+        ],
+        tips: ["Combina com o More Bows and Arrows — um dá variedade, o outro dá progressão."],
+      },
+      {
+        name: "Bosses of Mass Destruction",
+        desc: "3 chefes opcionais com arena própria: Night Lich (mago), Void Blossom (flor colossal) e Obsidilith (monólito de obsidiana).",
+        firstSteps: [
+          "Procure os altares/estruturas de invocação de cada chefe espalhados pelo mundo.",
+          "Prepara equipamento antes — cada chefe tem mecânica própria de arena.",
+        ],
+        tips: [
+          "Fica totalmente separado do Danny's AoT — arena e tema diferentes, não compete com os titãs.",
+        ],
+      },
     ],
   },
   {
@@ -242,6 +283,23 @@ const MOD_CATALOG: ModCategory[] = [
         ],
         tips: ["Ótimo pra cortar tempo de viagem entre base, vila e masmorras favoritas."],
       },
+      {
+        name: "Alex's Caves: Refabricated",
+        desc: "5 biomas de caverna raros escondidos no subsolo, cada um com mobs e loot próprios.",
+        firstSteps: [
+          "Cava fundo — os biomas são raros e ficam nas profundezas, não é logo de cara.",
+          "Cada bioma novo tem perigo e recompensa próprios — vai preparado.",
+        ],
+        tips: ["Porte da comunidade (não oficial), mas ativo e testado por bastante gente."],
+      },
+      {
+        name: "Eternal Nether",
+        desc: "Estruturas e mobs novos no Nether — continuação do clássico Bygone Nether.",
+        firstSteps: [
+          "Explora além do que já conhece no Nether — as estruturas novas ficam espalhadas pelos biomas.",
+        ],
+        tips: ["Dá mais motivo pra voltar no Nether depois do portal inicial."],
+      },
     ],
   },
   {
@@ -268,6 +326,110 @@ const MOD_CATALOG: ModCategory[] = [
         name: "Chipped",
         desc: "Blocos decorativos customizáveis com texturas próprias.",
         firstSteps: ["Permite personalizar a textura de certos blocos decorativos direto no menu do próprio bloco."],
+      },
+    ],
+  },
+  {
+    id: "sobrevivencia",
+    label: "Sobrevivência & Imersão",
+    mods: [
+      {
+        name: "Farmer's Delight",
+        desc: "Culinária de verdade — novas plantações, pratos e fogão. Comida deixa de ser só trigo e carne crua.",
+        firstSteps: [
+          "Craft a tábua de corte e a panela — são a base de tudo no mod.",
+          "Planta as culturas novas (tomate, etc) perto da sua fazenda de sempre.",
+        ],
+        tips: [
+          "Alguns mods que já tínhamos (Supplementaries, Bountiful) ganham receita extra com ele instalado.",
+        ],
+      },
+      {
+        name: "Comforts",
+        desc: "Saco de dormir e rede — avança a noite sem precisar fixar spawn numa cama.",
+        firstSteps: [
+          "Craft o saco de dormir com lã e leva na mochila pra qualquer expedição.",
+          "A rede vira noite em dia, útil se você quer ficar acordado durante o dia.",
+        ],
+        tips: ["Ótimo pra quem explora longe da base e não quer arriscar mudar o spawn."],
+      },
+      {
+        name: "Explorer's Compass",
+        desc: "Aponta a estrutura mais próxima de um tipo escolhido.",
+        firstSteps: [
+          "Craft e clique direito pra abrir o menu de escolha de estrutura.",
+          "Ele mira a direção certa — segue caminhando até achar.",
+        ],
+        tips: ["Corta muito o tempo de \"andar às cegas\" procurando vila ou masmorra."],
+      },
+      {
+        name: "Balanced Ore Detector",
+        desc: "Prospecção por eco-localização — não é raio-x, ainda dá trabalho achar o minério.",
+        firstSteps: [
+          "Craft o detector e usa numa superfície sólida — ele solta 3 estalos que ecoam.",
+          "O eco muda de som e volume dependendo da distância do minério.",
+        ],
+        tips: ["Configurável — dá pra ajustar o quanto ele facilita, se achar fácil ou difícil demais."],
+      },
+      {
+        name: "Easy Villager Fabric",
+        desc: "Gerencia, cria e reproduz aldeões em blocos de vidro — economia de trocas sem sofrimento.",
+        firstSteps: [
+          "Craft o bloco de captura e usa nele pra guardar um aldeão.",
+          "Coloca em displays de vidro pra reproduzir e comerciar em fila.",
+        ],
+        tips: ["Bom complemento do trade do mercador errante — cobre tanto aldeão fixo quanto errante."],
+      },
+      {
+        name: "Gravestones",
+        desc: "Protege seus itens quando você morre — cria uma lápide com tudo guardado dentro.",
+        firstSteps: [
+          "Automático — ao morrer, uma lápide aparece no lugar com seus itens.",
+          "Volta lá e clica na lápide pra recuperar tudo.",
+        ],
+        tips: [
+          "Essencial numa run onde um titã pode te pegar de surpresa — ninguém perde o inventário inteiro por azar.",
+        ],
+      },
+      {
+        name: "Wandering Trader Trades",
+        desc: "+70 trocas novas pro mercador errante.",
+        firstSteps: ["Só esperar um mercador errante aparecer — as trocas novas já vêm misturadas nele."],
+        tips: ["Passivo — não precisa fazer nada diferente, só enriquece quem já existia."],
+      },
+      {
+        name: "Iron Chests",
+        desc: "Baús com tiers, de cobre até obsidiana — cada um com mais espaço que o anterior.",
+        firstSteps: [
+          "Craft o tier mais baixo (cobre) primeiro e upgrada conforme minera material melhor.",
+          "Upgrade é direto: combina baú + material em cima do próprio baú.",
+        ],
+        tips: ["Bom passo intermediário antes de pensar em rede de armazenamento maior."],
+      },
+      {
+        name: "Croptopia",
+        desc: "+250 comidas, 58 plantações e árvores frutíferas novas.",
+        firstSteps: [
+          "Planta as culturas novas junto da fazenda que já tem.",
+          "Muitas receitas novas de comida — confere no REI.",
+        ],
+        tips: [
+          "Overlap parcial com o Farmer's Delight — os dois juntos dão bastante variedade de comida, sem conflito técnico entre eles.",
+        ],
+      },
+      {
+        name: "Beekeeping",
+        desc: "Apicultura — mel e itens relacionados, comidas e bebidas novas.",
+        firstSteps: [
+          "Constrói uma colmeia perto de flores e colhe o mel depois que as abelhas trabalharem.",
+        ],
+        tips: ["Complemento pequeno de progressão de comida, baixo risco de conflito com qualquer coisa."],
+      },
+      {
+        name: "Actual Fishing",
+        desc: "Pesca de verdade — puxa peixe vivo da água em vez de esperar a vara fisgar sozinha.",
+        firstSteps: ["Usa a vara normal — a diferença aparece na hora de fisgar, agora é ativo."],
+        tips: ["Muda só a mecânica da pescaria, não mexe em mais nada do jogo."],
       },
     ],
   },
@@ -442,10 +604,15 @@ const MOD_CATALOG: ModCategory[] = [
       { name: "Athena" },
       { name: "AAA Particles" },
       { name: "EnchDesc" },
-      { name: "BOMD" },
       { name: "Continuity" },
       { name: "Balm" },
       { name: "Yung's API" },
+      { name: "Architectury API" },
+      { name: "Fzzy Config" },
+      { name: "PneumonoCore" },
+      { name: "MonoLib" },
+      { name: "UnionLib" },
+      { name: "CreativeCore" },
     ],
   },
 ];
@@ -834,21 +1001,43 @@ export default async function Home() {
           ))}
         </RevealStagger>
 
-        {/* distant horizons — mesmo esquema dos shaders: vem no instalador, client-only */}
-        <RevealSection className="clip-corner-md mt-4 flex flex-wrap items-center justify-between gap-3 border border-accent/16 bg-panel/70 px-4.5 py-4">
-          <div>
-            <div className="text-[14px] font-semibold text-ink">Distant Horizons</div>
-            <div className="mt-1 text-[11px] leading-[1.6] text-text/50">
-              Renderiza o terreno beeem além do alcance normal, tipo um LOD de horizonte — sem
-              pesar no servidor (roda 100% no seu client). Ativa em{" "}
-              <Strong>Options</Strong> → <Strong>Video Settings</Strong> →{" "}
-              <Strong>Distant Horizons</Strong>.
-            </div>
-          </div>
-          <span className="clip-corner-sm flex-none border border-accent/22 px-2 py-1 font-mono-ui text-[9px] font-semibold tracking-[0.1em] text-accent">
-            EXTRA
-          </span>
-        </RevealSection>
+        {/* extras client-only — vem no instalador, mas nunca no servidor */}
+        <p className="mt-4 mb-3 text-[11px] tracking-[0.1em] text-text/40 uppercase">
+          Extras client-only — cada um ativa/desativa por conta própria, sem afetar mais ninguém.
+        </p>
+        <RevealStagger className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          {[
+            {
+              name: "Distant Horizons",
+              desc: "Renderiza o terreno beeem além do alcance normal, tipo um LOD de horizonte. Ativa em Options → Video Settings → Distant Horizons.",
+            },
+            {
+              name: "AmbientSounds",
+              desc: "Sons ambiente por bioma — vento, grutas, criaturas ao longe. Configurável no próprio menu do mod.",
+            },
+            {
+              name: "LambDynamicLights",
+              desc: "Tocha ou item brilhante na mão ilumina de verdade, sem precisar colocar bloco.",
+            },
+            {
+              name: "First-person Model",
+              desc: "Você vê seu próprio corpo e pernas em primeira pessoa, não só as mãos.",
+            },
+          ].map((extra) => (
+            <RevealItem
+              key={extra.name}
+              className="clip-corner-md flex items-start justify-between gap-3 border border-accent/16 bg-panel/70 px-4.5 py-4"
+            >
+              <div>
+                <div className="text-[14px] font-semibold text-ink">{extra.name}</div>
+                <div className="mt-1 text-[11px] leading-[1.6] text-text/50">{extra.desc}</div>
+              </div>
+              <span className="clip-corner-sm flex-none border border-accent/22 px-2 py-1 font-mono-ui text-[9px] font-semibold tracking-[0.1em] text-accent">
+                EXTRA
+              </span>
+            </RevealItem>
+          ))}
+        </RevealStagger>
 
         {/* quote + status */}
         <RevealSection className="my-14 grid grid-cols-1 items-center gap-6 border-t border-accent/16 py-8.5 md:grid-cols-2">
