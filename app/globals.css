@@ -65,6 +65,56 @@
   animation: scan-line 9s linear infinite;
 }
 
+@keyframes blink-cursor {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes flicker-soft {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  4% {
+    opacity: 0.82;
+  }
+  6% {
+    opacity: 1;
+  }
+  46% {
+    opacity: 1;
+  }
+  48% {
+    opacity: 0.68;
+  }
+  50% {
+    opacity: 1;
+  }
+  92% {
+    opacity: 1;
+  }
+  94% {
+    opacity: 0.8;
+  }
+  96% {
+    opacity: 1;
+  }
+}
+
+.animate-blink-cursor {
+  animation: blink-cursor 1.1s steps(1) infinite;
+}
+
+/* flicker tipo CRT/terminal, sutil — pra rotulos "// ALGO" espalhados pelo site */
+.animate-flicker-soft {
+  animation: flicker-soft 6.5s ease-in-out infinite;
+}
+
 /* grade de fundo estilo "blueprint militar" */
 .bg-grid {
   background-image:

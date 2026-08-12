@@ -39,7 +39,9 @@ export function AccessGate() {
         <span className="flex items-center gap-2 text-[10px] font-semibold tracking-[0.2em] text-accent">
           🔒 ACESSO CRIPTOGRAFADO
         </span>
-        <span className="text-[9px] tracking-[0.16em] text-text/30">{"// LOCKED"}</span>
+        <span className="animate-flicker-soft text-[9px] tracking-[0.16em] text-text/30">
+          {"// LOCKED"}
+        </span>
       </div>
 
       {/* preview embaralhado dos dados escondidos */}
@@ -56,7 +58,7 @@ export function AccessGate() {
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-3.5">
         <div className="clip-corner-btn flex items-center gap-2.5 border border-accent/30 bg-bg/80 px-3.5 py-3.5">
-          <span className="text-[13px] text-accent-dim">&gt;_</span>
+          <span className="animate-blink-cursor text-[13px] text-accent-dim">&gt;_</span>
           <input
             type="text"
             autoComplete="off"

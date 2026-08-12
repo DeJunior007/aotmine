@@ -4,6 +4,7 @@ import { CopyAddress } from "@/components/CopyAddress";
 import { EmblemCube } from "@/components/EmblemCube";
 import { AccessGate } from "@/components/AccessGate";
 import { DecryptReveal } from "@/components/DecryptReveal";
+import { DownloadModal } from "@/components/DownloadModal";
 import { HeroReveal, RevealSection, RevealStagger, RevealItem } from "@/components/Reveal";
 
 const SERVER_ADDRESS = "minecraft.smartcal.com.br:25565";
@@ -68,30 +69,15 @@ const STEPS = [
     title: "Baixe o instalador do modpack",
     body: (
       <>
-        Não é o .zip dos mods — é um programinha (<Strong>InstalarDannysAoT</Strong>) que faz
-        tudo sozinho: baixa o modpack mais atual, instala os mods e o config certos, configura o
+        Clica no botão <Strong>↓ Baixar agora</Strong> lá no topo da página e escolhe o
+        instalador do seu sistema (<Strong>Windows</Strong> ou <Strong>Linux</Strong>). Não é o
+        .zip dos mods — é um programinha (<Strong>InstalarDannysAoT</Strong>) que faz tudo
+        sozinho: baixa o modpack mais atual, instala os mods e o config certos, configura o
         Fabric na versão certa e já deixa o servidor cadastrado.
       </>
     ),
     tips: [
-      <>
-        Linux:{" "}
-        <a href={INSTALLER_LINUX_URL} target="_blank" rel="noopener noreferrer">
-          baixar InstalarDannysAoT
-        </a>
-        .
-      </>,
-      INSTALLER_WINDOWS_URL ? (
-        <>
-          Windows:{" "}
-          <a href={INSTALLER_WINDOWS_URL} target="_blank" rel="noopener noreferrer">
-            baixar InstalarDannysAoT.exe
-          </a>
-          .
-        </>
-      ) : (
-        "Windows: em breve — por enquanto peça pro Deilton rodar/gerar o instalador pra você."
-      ),
+      "A senha de acesso é a mesma pro modpack e pros instaladores — pede pro Deilton no grupo se não tiver.",
       'Se o antivírus reclamar do executável, é o mesmo alerta genérico de qualquer programa não-assinado — pode liberar.',
     ],
   },
@@ -188,7 +174,9 @@ export default async function Home() {
             <span className="font-semibold text-[11px] tracking-[0.2em] text-accent">
               SERVIDOR PRIVADO
             </span>
-            <span className="text-[11px] tracking-[0.14em] text-text/35">{"// PARADIS NODE"}</span>
+            <span className="animate-flicker-soft text-[11px] tracking-[0.14em] text-text/35">
+              {"// PARADIS NODE"}
+            </span>
             <span className="flex-1" />
             <TagPill>MINECRAFT 1.21.1</TagPill>
             <TagPill>FABRIC</TagPill>
@@ -199,7 +187,7 @@ export default async function Home() {
         <div className="grid grid-cols-1 items-center gap-9 py-14 md:grid-cols-2">
           <HeroReveal delay={0.05}>
             <div>
-              <span className="clip-corner-md mb-5.5 inline-block border border-accent/34 bg-accent-deep/50 px-3 py-1.75 font-semibold text-[10px] tracking-[0.24em] text-accent">
+              <span className="clip-corner-md animate-flicker-soft mb-5.5 inline-block border border-accent/34 bg-accent-deep/50 px-3 py-1.75 font-semibold text-[10px] tracking-[0.24em] text-accent">
                 ODM GEAR // INITIATED
               </span>
               <h1 className="m-0 font-display text-[clamp(50px,9.5vw,104px)] leading-[0.9] tracking-[0.005em] text-ink uppercase">
@@ -224,6 +212,15 @@ export default async function Home() {
                   Agradecemos ao <Strong2>Kevin</Strong2> e ao <Strong2>Lucas</Strong2> pelas
                   doações que ajudaram a tornar esse projeto possível.
                 </p>
+              </div>
+
+              <div className="mt-6.5">
+                <DownloadModal
+                  unlocked={unlocked}
+                  downloadUrl={DOWNLOAD_URL}
+                  installerWindowsUrl={INSTALLER_WINDOWS_URL}
+                  installerLinuxUrl={INSTALLER_LINUX_URL}
+                />
               </div>
 
               <div className="mt-3.5 flex flex-wrap gap-2">
@@ -267,7 +264,9 @@ export default async function Home() {
                   <span className="text-[10px] font-semibold tracking-[0.2em] text-accent">
                     ENDEREÇO DO SERVIDOR
                   </span>
-                  <span className="text-[9px] tracking-[0.16em] text-text/30">{"// ACTIVE"}</span>
+                  <span className="animate-flicker-soft text-[9px] tracking-[0.16em] text-text/30">
+                    {"// ACTIVE"}
+                  </span>
                 </div>
                 <CopyAddress address={SERVER_ADDRESS} />
                 <div className="mt-3.5 flex items-center gap-2 text-[10px] font-semibold tracking-[0.18em] text-text/50">
@@ -286,7 +285,9 @@ export default async function Home() {
                   <span className="text-[10px] font-semibold tracking-[0.2em] text-accent">
                     DOWNLOAD DO MODPACK
                   </span>
-                  <span className="text-[9px] tracking-[0.16em] text-text/30">{"// 168 MB"}</span>
+                  <span className="animate-flicker-soft text-[9px] tracking-[0.16em] text-text/30">
+                    {"// 168 MB"}
+                  </span>
                 </div>
                 <a
                   href={DOWNLOAD_URL}
@@ -315,7 +316,7 @@ export default async function Home() {
             O que tem dentro
           </h2>
           <span className="h-px flex-1 bg-linear-to-r from-accent/30 to-transparent" />
-          <span className="text-[9px] tracking-[0.2em] text-accent/55">
+          <span className="animate-flicker-soft text-[9px] tracking-[0.2em] text-accent/55">
             MODPACK CONTENT // LOADED
           </span>
         </RevealSection>
@@ -352,8 +353,8 @@ export default async function Home() {
             <h2 className="m-0 font-display text-[clamp(26px,5vw,40px)] tracking-[0.03em] text-ink uppercase">
               Como instalar
             </h2>
-            <span className="text-[9px] tracking-[0.2em] text-accent/50">
-              SETUP SEQUENCE // 06 STEPS
+            <span className="animate-flicker-soft text-[9px] tracking-[0.2em] text-accent/50">
+              {`SETUP SEQUENCE // ${String(STEPS.length).padStart(2, "0")} STEPS`}
             </span>
           </div>
           <p className="mt-2.5 mb-6.5 text-[11px] tracking-[0.1em] text-text/42 uppercase">
@@ -399,7 +400,7 @@ export default async function Home() {
             Shaders inclusos
           </h2>
           <span className="h-px flex-1 bg-linear-to-r from-accent/30 to-transparent" />
-          <span className="text-[9px] tracking-[0.2em] text-accent/55">
+          <span className="animate-flicker-soft text-[9px] tracking-[0.2em] text-accent/55">
             CLIENT-SIDE ONLY // JA VEM NO INSTALADOR
           </span>
         </RevealSection>
@@ -439,7 +440,7 @@ export default async function Home() {
             </p>
           </div>
           <div className="border border-accent/18 bg-panel/60 px-5 py-4.5 text-[10px] leading-[2] tracking-[0.16em] text-text/50">
-            <div className="mb-2 text-accent">ODM GEAR // STANDBY</div>
+            <div className="animate-flicker-soft mb-2 text-accent">ODM GEAR // STANDBY</div>
             GAS: OK
             <br />
             BLADES: SHARP
