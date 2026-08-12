@@ -607,6 +607,19 @@ export async function GET(req: NextRequest) {
       await client.query("commit");
     }
 
+    if (step === "verify") {
+      const counts: Record<string, number> = {};
+      for (const t of [
+        "mods", "origins", "items", "recipes", "recipe_ingredients",
+        "tutorials", "tutorial_steps", "tutorial_step_items", "tips",
+        "common_problems", "mod_relationships",
+      ]) {
+        const r = await client.query(`select count(*)::int as n from ${t}`);
+        counts[t] = r.rows[0].n;
+      }
+      return NextResponse.json({ ok: true, counts });
+    }
+
     return NextResponse.json({ ok: true, log });
   } catch (err) {
     await client.query("rollback").catch(() => {});
