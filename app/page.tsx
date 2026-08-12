@@ -40,7 +40,11 @@ const SHADERS = [
 
 const MODS = [
   { name: "Danny's AoT", tag: "ODM • TITÃS • PARADIS", featured: true },
+  { name: "The Aether", tag: "NOVA DIMENSÃO", featured: true },
+  { name: "Deeper and Darker", tag: "NOVA DIMENSÃO", featured: true },
   { name: "Origins", tag: "ESCOLHA SUA CLASSE" },
+  { name: "Breath of Nichirin", tag: "DEMON SLAYER" },
+  { name: "ThePjotyr's Speedsters", tag: "PODER DE VELOCISTA" },
   { name: "Sodium + Lithium", tag: "PERFORMANCE" },
   { name: "Xaero's Minimap + Worldmap", tag: "MAPA" },
   { name: "Macaw's", tag: "CONSTRUÇÃO" },
@@ -51,8 +55,8 @@ const MODS = [
 // ModCodex (que agrupa, ex: Macaw's = 1 linha representando 8 jars). O
 // catalogo em si (mods/itens/receitas/tutoriais/origins) agora vem do
 // Supabase — ver lib/modcodex/queries.ts.
-const TOTAL_MODS = 97;
-const DOWNLOAD_SIZE = "406 MB";
+const TOTAL_MODS = 105;
+const DOWNLOAD_SIZE = "466 MB";
 
 const STEPS = [
   {
