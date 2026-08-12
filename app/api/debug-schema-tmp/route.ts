@@ -14,7 +14,11 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "sem POSTGRES_URL configurada" }, { status: 500 });
   }
 
-  const client = new Client({ connectionString, ssl: { rejectUnauthorized: false } });
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+  const client = new Client({
+    connectionString,
+    ssl: { rejectUnauthorized: false },
+  });
   try {
     await client.connect();
 
