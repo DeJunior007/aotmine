@@ -351,9 +351,7 @@ export default async function Home() {
         </RevealSection>
 
         <RevealStagger className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          <RevealItem className="col-span-1 sm:col-span-2 lg:col-span-3">
-            <SecretMods mods={SECRET_MODS} />
-          </RevealItem>
+          <SecretMods mods={SECRET_MODS} />
           {MODS.map((mod) => (
             <RevealItem
               key={mod.name}
