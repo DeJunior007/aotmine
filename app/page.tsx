@@ -60,19 +60,123 @@ const MOD_CATALOG: ModCategory[] = [
       {
         name: "Origins",
         desc: "Escolha sua origem ao nascer no mundo — cada uma com poderes e limitações diferentes. É o primeiro mod que decide como você vai jogar.",
+        firstSteps: [
+          "Ao entrar num mundo novo, o jogo já abre a tela de escolha de origem — dá uma boa olhada antes de decidir, trocar depois exige um item especial.",
+          "Abre o menu de origens (tecla O por padrão) pra ver os poderes ativos e passivos da sua escolha.",
+          "Escolha pensando no seu estilo: combate, exploração ou suporte — cada origem empurra pra um lado.",
+        ],
+        tips: [
+          "Dá pra trocar de origem depois com um item específico (orb of origin) — não é uma escolha permanente de verdade.",
+          "Algumas origens têm desvantagens reais (não pode comer certas coisas, toma dano de sol) — lê com atenção.",
+          "O servidor roda com 1 layer de origem ativa, então é uma escolha só, não acumula várias.",
+        ],
       },
       {
         name: "Danny's AoT",
         desc: "ODM Gear, titãs e a dimensão de Paradis — o mod central do modpack.",
+        firstSteps: [
+          "Craft o ODM Gear básico assim que puder — procura por \"ODM\" no REI (tecla R) pra ver a receita.",
+          "Titãs não aparecem logo de cara, só depois que você avança um pouco — não se assuste se demorar.",
+          "A dimensão de Paradis tem portal próprio — procure pela estrutura de entrada especial pelo mundo.",
+        ],
+        tips: [
+          "É o mod \"dono da casa\" do servidor — qualquer bug ou dúvida sobre ele, chama no grupo em vez de tentar mexer por fora.",
+          "O gás do ODM Gear acaba — carrega recarga ou fica perto de um posto de reabastecimento.",
+          "Treina a manobra de gancho num lugar seguro antes de encarar um titã de verdade.",
+        ],
       },
-      { name: "Spell Engine", desc: "Sistema de magias e habilidades ativas em tempo real, com combos." },
-      { name: "Spell Power", desc: "Progressão de poder mágico — complementa o Spell Engine." },
-      { name: "Artifacts", desc: "Itens equipáveis com efeitos únicos, tipo relíquias de RPG." },
-      { name: "Trinkets", desc: "Slots extras de acessório pra equipar artefatos e outros itens." },
-      { name: "Better Combat", desc: "Combos, animações e reações de combate mais fluidas." },
-      { name: "Combat Roll", desc: "Esquiva com rolamento — dodge de verdade, não só andar pra trás." },
-      { name: "Adventurez", desc: "Conteúdo extra de aventura: mobs, itens e progressão." },
-      { name: "Bountiful", desc: "Sistema de contratos — aceite bounties e complete objetivos por recompensa." },
+      {
+        name: "Spell Engine",
+        desc: "Sistema de magias e habilidades ativas em tempo real, com combos.",
+        firstSteps: [
+          "Consiga um item de feitiço inicial — procura por \"spell\" no REI pra ver onde craftar ou achar.",
+          "Feitiços ficam vinculados a itens equipáveis — segure ou equipe o item certo pra conjurar.",
+          "Abre o menu de combos pra ver quais combinações você já desbloqueou.",
+        ],
+        tips: [
+          "Cada feitiço gasta mana/cooldown — fica de olho na barra antes de spammar.",
+          "Combina melhor junto do Spell Power pra escalar o dano das magias.",
+          "Testa um feitiço novo num mob fraco antes de levar pra luta grande — cada um tem uma janela de uso diferente.",
+        ],
+      },
+      {
+        name: "Spell Power",
+        desc: "Progressão de poder mágico — complementa o Spell Engine.",
+        firstSteps: [
+          "Ganha pontos de poder mágico conforme usa magias — é tipo um nível separado do XP normal.",
+          "Fica de olho na barra de poder mágico na tela, ela cresce enquanto você joga com o Spell Engine.",
+        ],
+        tips: [
+          "Focar num \"caminho\" de magia só rende mais que espalhar pouco em cada um.",
+          "Combina bem com Artifacts que dão bônus mágico.",
+        ],
+      },
+      {
+        name: "Artifacts",
+        desc: "Itens equipáveis com efeitos únicos, tipo relíquias de RPG.",
+        firstSteps: [
+          "Artefatos aparecem como loot em masmorras e estruturas — Dungeons Arise, Structory e Yung's ajudam a achar mais.",
+          "Equipa no slot de artefato do inventário (mesmo menu do Trinkets).",
+        ],
+        tips: [
+          "Nem todo artefato serve pro seu build — lê o efeito com calma antes de equipar.",
+          "Alguns têm efeito negativo junto do positivo — é um trade-off, não é upgrade grátis.",
+        ],
+      },
+      {
+        name: "Trinkets",
+        desc: "Slots extras de acessório pra equipar artefatos e outros itens.",
+        firstSteps: [
+          "Abre o inventário e procura a aba extra de slots de acessório.",
+          "Qualquer item marcado como \"trinket\" por outro mod (Artifacts, por exemplo) encaixa ali.",
+        ],
+        tips: [
+          "É só a \"prateleira\" onde os acessórios de outros mods encaixam — sozinho ele não adiciona itens novos.",
+        ],
+      },
+      {
+        name: "Better Combat",
+        desc: "Combos, animações e reações de combate mais fluidas.",
+        firstSteps: [
+          "Já funciona automático — o ataque normal já vira combo mais fluido, não precisa configurar nada.",
+          "Segura o botão de ataque perto de um mob pra ver as animações de combo novas.",
+        ],
+        tips: [
+          "Combina muito bem com Combat Roll pra um combate estilo \"ação\" de verdade.",
+          "Dá pra ajustar a sensibilidade pelo ModMenu se achar rápido ou lento demais.",
+        ],
+      },
+      {
+        name: "Combat Roll",
+        desc: "Esquiva com rolamento — dodge de verdade, não só andar pra trás.",
+        firstSteps: [
+          "A tecla de esquiva costuma ser dupla batida de direção ou uma tecla dedicada — confere em ModMenu → Controls.",
+        ],
+        tips: [
+          "Rolar tem um cooldown curto — não dá pra ficar rolando infinito pra fugir de tudo.",
+          "Rola PRA FORA do ataque, não em cima dele — timing importa mais que reflexo puro.",
+        ],
+      },
+      {
+        name: "Adventurez",
+        desc: "Conteúdo extra de aventura: mobs, itens e progressão.",
+        firstSteps: [
+          "Adiciona itens e mobs novos espalhados pelo mundo normal — só de explorar você já vai encontrando.",
+        ],
+        tips: ["Bom mod pra quem gosta de progressão orgânica, sem precisar seguir um guia à risca."],
+      },
+      {
+        name: "Bountiful",
+        desc: "Sistema de contratos — aceite bounties e complete objetivos por recompensa.",
+        firstSteps: [
+          "Procure o quadro de recompensas (bounty board) numa vila — ele gera contratos aleatórios.",
+          "Aceite um contrato, cumpra o objetivo (matar um mob, entregar um item) e volte pra pegar a recompensa.",
+        ],
+        tips: [
+          "Contratos expiram — não aceite um que você não vai conseguir terminar a tempo.",
+          "Bom jeito de ganhar recursos sem precisar farmar sem rumo nenhum.",
+        ],
+      },
     ],
   },
   {
@@ -82,14 +186,61 @@ const MOD_CATALOG: ModCategory[] = [
       {
         name: "Naturalist",
         desc: "47 animais selvagens novos — ursos, leões, girafas, rinocerontes, tubarões e muito mais, cada um com comportamento próprio.",
+        firstSteps: [
+          "Os animais aparecem nos biomas certos (savana pra leão e girafa, floresta pra urso e veado, mar pra tubarão e baleia) — só explorar já acha.",
+          "Alguns têm interação especial — tenta se aproximar com um item específico na mão pra ver o que rola.",
+        ],
+        tips: [
+          "Predadores caçam de verdade — não é só decoração, alguns bichos são perigosos de verdade.",
+          "Bom mod pra combinar com fazendas e exibições — muitos são \"criáveis\" tipo um zoológico.",
+        ],
       },
-      { name: "Terralith", desc: "Biomas e terrenos completamente reformulados — muito mais variedade pra explorar." },
-      { name: "Repurposed Structures", desc: "Estruturas vanilla espalhadas em mais biomas e variações." },
-      { name: "Structory", desc: "Novas estruturas e masmorras escondidas pelo mundo." },
-      { name: "Dungeons Arise", desc: "Masmorras customizadas, maiores e mais perigosas." },
-      { name: "Yung's Better Dungeons", desc: "Masmorras vanilla revisadas — mais interessantes e desafiadoras." },
-      { name: "Yung's Better Strongholds", desc: "Fortalezas revisadas, com layouts novos." },
-      { name: "Waystones", desc: "Marque pontos e teleporte rápido entre eles depois." },
+      {
+        name: "Terralith",
+        desc: "Biomas e terrenos completamente reformulados — muito mais variedade pra explorar.",
+        firstSteps: ["Já funciona automático em qualquer mundo novo — os biomas novos aparecem só de explorar."],
+        tips: [
+          "Se o mundo já existia antes de instalar, os biomas novos só aparecem em chunks nunca gerados antes — bem longe do spawn.",
+        ],
+      },
+      {
+        name: "Repurposed Structures",
+        desc: "Estruturas vanilla espalhadas em mais biomas e variações.",
+        firstSteps: [
+          "Nada de novo pra aprender — templos, iglus, naufrágios e companhia passam a aparecer em mais lugares.",
+        ],
+      },
+      {
+        name: "Structory",
+        desc: "Novas estruturas e masmorras escondidas pelo mundo.",
+        firstSteps: ["Procure construções novas espalhadas pelo mapa, geralmente com loot bom — vale ir mais longe do spawn."],
+        tips: ["Algumas estruturas têm puzzle ou armadilha — cuidado ao entrar sem se preparar."],
+      },
+      {
+        name: "Dungeons Arise",
+        desc: "Masmorras customizadas, maiores e mais perigosas.",
+        firstSteps: ["Aparecem geradas naturalmente pelo mundo — normalmente grandes e visíveis de longe."],
+        tips: ["São mais difíceis que masmorra vanilla — vai preparado com armadura, cura e, se der, gente junto."],
+      },
+      {
+        name: "Yung's Better Dungeons",
+        desc: "Masmorras vanilla revisadas — mais interessantes e desafiadoras.",
+        firstSteps: ["Substitui a masmorra clássica (sala de spawner) por uma versão revisada e maior."],
+      },
+      {
+        name: "Yung's Better Strongholds",
+        desc: "Fortalezas revisadas, com layouts novos.",
+        firstSteps: ["O Eye of Ender ainda guia até lá do mesmo jeito — só o layout de dentro que muda."],
+      },
+      {
+        name: "Waystones",
+        desc: "Marque pontos e teleporte rápido entre eles depois.",
+        firstSteps: [
+          "Ache ou construa uma waystone (estrutura própria do mod) e ative ela chegando perto.",
+          "Abre o menu de waystones pra teleportar entre qualquer uma que você já ativou.",
+        ],
+        tips: ["Ótimo pra cortar tempo de viagem entre base, vila e masmorras favoritas."],
+      },
     ],
   },
   {
@@ -99,43 +250,172 @@ const MOD_CATALOG: ModCategory[] = [
       {
         name: "Macaw's",
         desc: "Pontes, Portas, Móveis, Cercas, Janelas, Caminhos, Telhados e Alçapões — pacote gigante de blocos decorativos, 8 mods num só.",
+        firstSteps: [
+          "As receitas seguem o padrão vanilla (madeira + formato) — procura no REI pelo bloco base que você já tem.",
+        ],
+        tips: [
+          "É o pacote todo junto — se não achar uma receita numa categoria (portas, por exemplo), procura nas outras, o catálogo é enorme.",
+        ],
       },
-      { name: "Supplementaries", desc: "Blocos utilitários e decorativos extras (sinos, luminárias, etc.)." },
-      { name: "Chipped", desc: "Blocos decorativos customizáveis com texturas próprias." },
+      {
+        name: "Supplementaries",
+        desc: "Blocos utilitários e decorativos extras (sinos, luminárias, etc.).",
+        firstSteps: ["Craftável com material vanilla — dá uma olhada no REI pra ver o que já dá pra fazer."],
+        tips: ["Muita coisa é decorativa, mas alguns blocos têm função real (redstone, iluminação inteligente)."],
+      },
+      {
+        name: "Chipped",
+        desc: "Blocos decorativos customizáveis com texturas próprias.",
+        firstSteps: ["Permite personalizar a textura de certos blocos decorativos direto no menu do próprio bloco."],
+      },
     ],
   },
   {
     id: "qol",
     label: "Mapa & Qualidade de vida",
     mods: [
-      { name: "Xaero's Minimap + Worldmap", desc: "Minimapa e mapa completo do mundo, com waypoints." },
-      { name: "Jade", desc: "Mostra informação do bloco/mob que você mira, tipo um HUD de inspeção." },
-      { name: "Roughly Enough Items (REI)", desc: "Visualizador de receitas e itens — abre com uma tecla." },
-      { name: "Inventory Profiles Next", desc: "Organiza e ordena inventário/baú automaticamente." },
-      { name: "Mouse Tweaks", desc: "Arrasta e solta itens mais rápido com o mouse." },
-      { name: "ModMenu", desc: "Tela central pra configurar todos os mods que têm config." },
-      { name: "Zoomify", desc: "Zoom na câmera com uma tecla." },
-      { name: "Controlify", desc: "Suporte completo a controle (joystick)." },
-      { name: "Better Third Person", desc: "Câmera em terceira pessoa mais suave e configurável." },
-      { name: "Not Enough Animations", desc: "Animações extras do personagem (sentar, rastejar, etc.)." },
-      { name: "AppleSkin", desc: "Mostra saturação e regeneração de fome na tela." },
-      { name: "Traveler's Backpack", desc: "Mochila extra equipável, com upgrades." },
-      { name: "Presence Footsteps", desc: "Sons de passos que mudam com o tipo de piso." },
-      { name: "Sound Physics Remastered", desc: "Áudio realista — eco e abafamento de som por ambiente." },
-      { name: "Bobby", desc: "Mantém chunks carregados de longe no client, visual mais completo." },
+      {
+        name: "Xaero's Minimap + Worldmap",
+        desc: "Minimapa e mapa completo do mundo, com waypoints.",
+        firstSteps: [
+          "O minimapa já aparece no canto da tela assim que você entra no mundo.",
+          "Tecla M abre o mapa completo (worldmap).",
+        ],
+        tips: [
+          "Clique direito no mapa pra criar waypoints personalizados (base, masmorra, o que quiser).",
+          "Death points marcam sozinhos onde você morreu — ajuda a recuperar os itens depois.",
+        ],
+      },
+      {
+        name: "Jade",
+        desc: "Mostra informação do bloco/mob que você mira, tipo um HUD de inspeção.",
+        firstSteps: ["Só mirar num bloco ou mob já mostra a informação na tela, não precisa apertar nada."],
+        tips: ["Dá pra configurar o que aparece (vida do mob, progresso do bloco) no config do mod."],
+      },
+      {
+        name: "Roughly Enough Items (REI)",
+        desc: "Visualizador de receitas e itens — abre com uma tecla.",
+        firstSteps: [
+          "Tecla padrão R (ou o ícone lateral) abre o catálogo de itens e receitas.",
+          "Segure R em cima de um item no inventário pra ver a receita dele na hora.",
+        ],
+        tips: ["Funciona também pra ver \"pra que esse item serve\" (usage), não só a receita dele."],
+      },
+      {
+        name: "Inventory Profiles Next",
+        desc: "Organiza e ordena inventário/baú automaticamente.",
+        firstSteps: ["Clique com o botão do meio (ou a tecla configurada) num baú/inventário pra ordenar automático."],
+        tips: ["Dá pra criar regras de ordenação customizadas no config, se quiser mais controle."],
+      },
+      {
+        name: "Mouse Tweaks",
+        desc: "Arrasta e solta itens mais rápido com o mouse.",
+        firstSteps: ["Já funciona sozinho: arraste segurando o botão sobre vários slots pra mover/dividir itens em massa."],
+      },
+      {
+        name: "ModMenu",
+        desc: "Tela central pra configurar todos os mods que têm config.",
+        firstSteps: ["Vai em Options (ou o botão que aparece na tela título) e procura \"Mods\" — lista tudo e abre o config de quem tem."],
+      },
+      {
+        name: "Zoomify",
+        desc: "Zoom na câmera com uma tecla.",
+        firstSteps: ["Tecla padrão C — segura pra dar zoom na câmera."],
+        tips: ["Dá pra trocar a tecla e o nível de zoom pelo ModMenu."],
+      },
+      {
+        name: "Controlify",
+        desc: "Suporte completo a controle (joystick).",
+        firstSteps: ["Conecta o controle antes de abrir o jogo — ele detecta automático."],
+        tips: ["Tem perfis prontos pra Xbox, PlayStation e genérico no menu do próprio mod."],
+      },
+      {
+        name: "Better Third Person",
+        desc: "Câmera em terceira pessoa mais suave e configurável.",
+        firstSteps: ["Aperta F5 (padrão do Minecraft) pra entrar em terceira pessoa — a câmera já vem mais suave."],
+        tips: ["Ajusta distância e ângulo da câmera pelo ModMenu se quiser um enquadramento diferente."],
+      },
+      {
+        name: "Not Enough Animations",
+        desc: "Animações extras do personagem (sentar, rastejar, etc.).",
+        firstSteps: [
+          "Automático — sentar (clicando em escada/degrau certo) e rastejar em espaço baixo já funcionam sem configurar nada.",
+        ],
+      },
+      {
+        name: "AppleSkin",
+        desc: "Mostra saturação e regeneração de fome na tela.",
+        firstSteps: ["Só olhar a barra de fome — agora ela mostra também a saturação escondida por baixo."],
+      },
+      {
+        name: "Traveler's Backpack",
+        desc: "Mochila extra equipável, com upgrades.",
+        firstSteps: [
+          "Craft a mochila (receita padrão com couro/material de bicho — confere no REI) e equipa nas costas.",
+          "Clique direito no ar (ou a tecla configurada) pra abrir o inventário dela sem tirar.",
+        ],
+        tips: ["Dá pra fazer upgrade dela (mais espaço, tanque de água) dependendo do que você encontrar."],
+      },
+      {
+        name: "Presence Footsteps",
+        desc: "Sons de passos que mudam com o tipo de piso.",
+        firstSteps: ["Automático — só andar em superfícies diferentes já muda o som."],
+      },
+      {
+        name: "Sound Physics Remastered",
+        desc: "Áudio realista — eco e abafamento de som por ambiente.",
+        firstSteps: ["Automático — cavernas e ambientes fechados já ganham eco na hora."],
+      },
+      {
+        name: "Bobby",
+        desc: "Mantém chunks carregados de longe no client, visual mais completo.",
+        firstSteps: [
+          "Aumenta a distância de chunks carregados no seu client além do que o servidor manda — ajusta a distância no config do mod se quiser.",
+        ],
+        tips: ["É só visual/client — não muda a distância real de simulação (mobs, redstone) do servidor."],
+      },
     ],
   },
   {
     id: "performance",
     label: "Performance",
     mods: [
-      { name: "Sodium + Lithium", desc: "Motor de renderização e de física otimizados — mais FPS, menos travamento." },
-      { name: "Indium", desc: "Compatibilidade do Sodium com mods que mexem em iluminação." },
-      { name: "Krypton", desc: "Otimiza a rede — menos lag de conexão com o servidor." },
-      { name: "FerriteCore", desc: "Reduz uso de memória RAM do jogo." },
-      { name: "ModernFix", desc: "Correções e otimizações gerais de carregamento." },
-      { name: "C2ME", desc: "Geração de chunks em paralelo — mundo carrega mais rápido." },
-      { name: "EntityCulling", desc: "Para de renderizar entidades que não estão realmente visíveis." },
+      {
+        name: "Sodium + Lithium",
+        desc: "Motor de renderização e de física otimizados — mais FPS, menos travamento.",
+        firstSteps: ["Não precisa fazer nada — já otimiza render e física assim que o jogo abre."],
+        tips: ["Se quiser mexer em configs avançadas, agora tem um menu de vídeo próprio do Sodium, bem mais rápido que o vanilla."],
+      },
+      {
+        name: "Indium",
+        desc: "Compatibilidade do Sodium com mods que mexem em iluminação.",
+        firstSteps: ["Só existe pra fazer o Sodium funcionar com mods de iluminação — não tem nada pra configurar."],
+      },
+      {
+        name: "Krypton",
+        desc: "Otimiza a rede — menos lag de conexão com o servidor.",
+        firstSteps: ["Automático, otimiza a rede em segundo plano — sem tela nem configuração."],
+      },
+      {
+        name: "FerriteCore",
+        desc: "Reduz uso de memória RAM do jogo.",
+        firstSteps: ["Automático — só roda por baixo dos panos reduzindo o consumo de RAM."],
+      },
+      {
+        name: "ModernFix",
+        desc: "Correções e otimizações gerais de carregamento.",
+        firstSteps: ["Automático na maior parte — algumas otimizações têm config próprio se quiser mexer."],
+      },
+      {
+        name: "C2ME",
+        desc: "Geração de chunks em paralelo — mundo carrega mais rápido.",
+        firstSteps: ["Automático — só faz o mundo carregar mais rápido enquanto você anda ou voa."],
+      },
+      {
+        name: "EntityCulling",
+        desc: "Para de renderizar entidades que não estão realmente visíveis.",
+        firstSteps: ["Automático — simplesmente não renderiza entidades escondidas atrás de blocos ou fora da visão."],
+      },
     ],
   },
   {

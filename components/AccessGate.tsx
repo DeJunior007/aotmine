@@ -79,7 +79,7 @@ export function AccessGate() {
           type="submit"
           disabled={status === "loading" || status === "granted" || !password}
           whileTap={{ scale: 0.98 }}
-          className={`clip-corner-btn block px-4 py-4 text-center text-[13px] font-semibold tracking-[0.14em] uppercase transition-[box-shadow,transform,opacity] duration-200 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none ${
+          className={`clip-corner-btn block cursor-pointer px-4 py-4 text-center text-[13px] font-semibold tracking-[0.14em] uppercase transition-[box-shadow,transform,opacity] duration-200 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none ${
             status === "granted"
               ? "bg-accent text-[#08120a] shadow-[0_0_38px_rgba(127,214,138,0.5)]"
               : "bg-linear-to-b from-accent to-accent-mid text-[#08120a] hover:-translate-y-px hover:shadow-[0_0_38px_rgba(127,214,138,0.42)] disabled:opacity-50"

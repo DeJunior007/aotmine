@@ -51,7 +51,7 @@ export function DownloadModal({
         type="button"
         onClick={() => setOpen(true)}
         whileTap={{ scale: 0.98 }}
-        className="clip-corner-btn inline-flex items-center gap-2.5 bg-linear-to-b from-accent to-accent-mid px-5.5 py-3.75 text-[13px] font-semibold tracking-[0.16em] text-[#08120a] uppercase transition-[box-shadow,transform] duration-250 hover:-translate-y-px hover:shadow-[0_0_38px_rgba(127,214,138,0.42)]"
+        className="clip-corner-btn inline-flex cursor-pointer items-center gap-2.5 bg-linear-to-b from-accent to-accent-mid px-5.5 py-3.75 text-[13px] font-semibold tracking-[0.16em] text-[#08120a] uppercase transition-[box-shadow,transform] duration-250 hover:-translate-y-px hover:shadow-[0_0_38px_rgba(127,214,138,0.42)]"
       >
         ↓ Baixar agora
       </motion.button>
@@ -88,7 +88,7 @@ export function DownloadModal({
                     type="button"
                     onClick={() => setOpen(false)}
                     aria-label="Fechar"
-                    className="text-[13px] text-text/40 transition-colors hover:text-accent"
+                    className="cursor-pointer text-[13px] text-text/40 transition-colors hover:text-accent"
                   >
                     ✕
                   </button>
