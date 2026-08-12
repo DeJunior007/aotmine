@@ -37,6 +37,10 @@ const SHADERS = [
     name: "Sildur's Vibrant Shaders",
     weight: "LEVE",
   },
+  {
+    name: "EclipseShader",
+    weight: "PESADO",
+  },
 ];
 
 // 9 no total: 6 mostrados direto + 3 "top secret" atras do cadeado
