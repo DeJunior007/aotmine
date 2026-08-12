@@ -212,7 +212,7 @@ export function ModCodexModal({
 
                       {/* abas por categoria — somem durante a busca */}
                       {!searchResults && (
-                        <div className="flex gap-1.5 overflow-x-auto border-b border-accent/12 px-4.5 py-2.75">
+                        <div className="themed-scrollbar flex gap-1.5 overflow-x-auto border-b border-accent/12 px-4.5 py-2.75">
                           {categories.map((cat) => (
                             <button
                               key={cat.id}
@@ -233,7 +233,7 @@ export function ModCodexModal({
                   )}
 
                   {/* conteudo */}
-                  <div className="min-h-0 flex-1 overflow-y-auto px-4.5 py-3.5">
+                  <div className="themed-scrollbar min-h-0 flex-1 overflow-y-auto px-4.5 py-3.5">
                     <AnimatePresence mode="wait">
                       {selected ? (
                         <ModDetail

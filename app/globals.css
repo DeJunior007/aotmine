@@ -158,6 +158,30 @@
   animation: float-soft 3.2s ease-in-out infinite;
 }
 
+/* scrollbar tematica pros painéis com rolagem (modais, listas) — cai pro
+   padrao do navegador sozinha se ele nao suportar nenhum dos dois jeitos */
+.themed-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-accent-dim) transparent;
+}
+.themed-scrollbar::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+.themed-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.themed-scrollbar::-webkit-scrollbar-thumb {
+  background-color: var(--color-accent-dim);
+  border-radius: 4px;
+}
+.themed-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-accent-mid);
+}
+.themed-scrollbar::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
 /* grade de fundo estilo "blueprint militar" */
 .bg-grid {
   background-image:
