@@ -49,7 +49,8 @@ const MODS = [
 // depois mundo, construcao, QoL/mapa e performance. As bibliotecas de
 // suporte (Fabric API, Kotlin, GeckoLib etc.) viram a ultima aba, so pra
 // quem quiser conferir — nao atrapalham quem quer achar um mod rapido.
-const TOTAL_MODS = 75;
+const TOTAL_MODS = 76;
+const DOWNLOAD_SIZE = "222 MB";
 
 const MOD_CATALOG: ModCategory[] = [
   {
@@ -78,6 +79,10 @@ const MOD_CATALOG: ModCategory[] = [
     id: "mundo",
     label: "Exploração & Mundo",
     mods: [
+      {
+        name: "Naturalist",
+        desc: "47 animais selvagens novos — ursos, leões, girafas, rinocerontes, tubarões e muito mais, cada um com comportamento próprio.",
+      },
       { name: "Terralith", desc: "Biomas e terrenos completamente reformulados — muito mais variedade pra explorar." },
       { name: "Repurposed Structures", desc: "Estruturas vanilla espalhadas em mais biomas e variações." },
       { name: "Structory", desc: "Novas estruturas e masmorras escondidas pelo mundo." },
@@ -366,7 +371,7 @@ export default async function Home() {
         <RevealSection className="flex flex-wrap gap-2 pb-6.5">
           <StatusBadge dot="animate-pulse-dot bg-accent">SERVER ONLINE</StatusBadge>
           <StatusBadge dot="bg-accent-mid">FABRIC 1.21.1</StatusBadge>
-          <StatusBadge dot="bg-accent-dim">75 MODS</StatusBadge>
+          <StatusBadge dot="bg-accent-dim">{TOTAL_MODS} MODS</StatusBadge>
           <StatusBadge dot="bg-accent-dim">PARADIS NODE</StatusBadge>
         </RevealSection>
 
@@ -406,7 +411,7 @@ export default async function Home() {
                     DOWNLOAD DO MODPACK
                   </span>
                   <span className="animate-flicker-soft text-[9px] tracking-[0.16em] text-text/30">
-                    {"// 168 MB"}
+                    {`// ${DOWNLOAD_SIZE}`}
                   </span>
                 </div>
                 <a
@@ -416,8 +421,8 @@ export default async function Home() {
                   ↓ Baixar o modpack (.zip)
                 </a>
                 <div className="flex flex-wrap gap-3.5 text-[10px] tracking-[0.16em] text-text/45">
-                  <span>168 MB</span>
-                  <span>75 MODS</span>
+                  <span>{DOWNLOAD_SIZE}</span>
+                  <span>{TOTAL_MODS} MODS</span>
                   <span>FABRIC</span>
                   <span>MINECRAFT 1.21.1</span>
                 </div>
@@ -547,6 +552,22 @@ export default async function Home() {
           ))}
         </RevealStagger>
 
+        {/* distant horizons — mesmo esquema dos shaders: vem no instalador, client-only */}
+        <RevealSection className="clip-corner-md mt-4 flex flex-wrap items-center justify-between gap-3 border border-accent/16 bg-panel/70 px-4.5 py-4">
+          <div>
+            <div className="text-[14px] font-semibold text-ink">Distant Horizons</div>
+            <div className="mt-1 text-[11px] leading-[1.6] text-text/50">
+              Renderiza o terreno beeem além do alcance normal, tipo um LOD de horizonte — sem
+              pesar no servidor (roda 100% no seu client). Ativa em{" "}
+              <Strong>Options</Strong> → <Strong>Video Settings</Strong> →{" "}
+              <Strong>Distant Horizons</Strong>.
+            </div>
+          </div>
+          <span className="clip-corner-sm flex-none border border-accent/22 px-2 py-1 font-mono-ui text-[9px] font-semibold tracking-[0.1em] text-accent">
+            EXTRA
+          </span>
+        </RevealSection>
+
         {/* quote + status */}
         <RevealSection className="my-14 grid grid-cols-1 items-center gap-6 border-t border-accent/16 py-8.5 md:grid-cols-2">
           <div>
@@ -571,7 +592,7 @@ export default async function Home() {
         </RevealSection>
 
         <div className="flex flex-wrap justify-between gap-3.5 border-t border-accent/12 py-4.5 pb-8.5 text-[10px] leading-[1.8] tracking-[0.14em] text-text/38">
-          <span>DEILTON&apos;S AOT MODPACK • MINECRAFT 1.21.1 • FABRIC • 75+ MODS</span>
+          <span>DEILTON&apos;S AOT MODPACK • MINECRAFT 1.21.1 • FABRIC • {TOTAL_MODS}+ MODS</span>
           <span>
             FEITO POR <span className="text-accent">DEILTON</span> • AGRADECIMENTOS A KEVIN E
             LUCAS
