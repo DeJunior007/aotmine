@@ -10,9 +10,9 @@ const anton = Anton({
 });
 
 export const metadata: Metadata = {
-  title: "Deilton's AoT Modpack — Servidor Danny's AoT",
+  title: "Deilton's RPG Anime Modpack",
   description:
-    "Modpack completo do servidor Danny's AoT (Minecraft 1.21.1, Fabric, 58 mods) — feito por Deilton, com apoio de Kevin e Lucas.",
+    "Modpack RPG/anime completo pro nosso servidor (Minecraft 1.20.1, Forge, 76 mods) — feito por Deilton, com apoio de Kevin e Lucas.",
 };
 
 export default function RootLayout({

@@ -131,10 +131,10 @@ export function EmblemCube() {
       <span className="absolute top-[6%] left-[2%] font-mono-ui text-[9px] leading-[1.7] tracking-[0.16em] text-accent/50">
         NODE_ID: PARADIS-01
         <br />
-        SECTOR: SHIGANSHINA
+        BUILD: FORGE 1.20.1
       </span>
       <span className="absolute right-[2%] bottom-[8%] text-right font-mono-ui text-[9px] leading-[1.7] tracking-[0.16em] text-accent/50">
-        ODM STATUS: READY
+        COMBAT STATUS: READY
         <br />
         CONNECTION: STABLE
       </span>

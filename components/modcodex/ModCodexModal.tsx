@@ -329,7 +329,7 @@ export function ModCodexModal({ categories }: { categories: ModCategoryGroup[] }
                       {index.itemBySlug.size} ITENS · {index.tutorialBySlug.size} TUTORIAIS ·{" "}
                       {index.originBySlug.size} ORIGINS
                     </span>
-                    <span>{"// FABRIC 1.21.1"}</span>
+                    <span>{"// FORGE 1.20.1"}</span>
                   </div>
                 </motion.div>
               </motion.div>

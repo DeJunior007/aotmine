@@ -11,10 +11,10 @@ import { HeroReveal, RevealSection, RevealStagger, RevealItem } from "@/componen
 import { getModCodex } from "@/lib/modcodex/queries";
 
 const SERVER_ADDRESS = "minecraft.smartcal.com.br:25565";
-const DOWNLOAD_URL = "https://minecraft.smartcal.com.br/danny-aot-modpack.zip";
+const DOWNLOAD_URL = "https://minecraft.smartcal.com.br/rpg-anime-modpack.zip";
 const TLAUNCHER_URL = "https://tlauncher.org";
-const INSTALLER_LINUX_URL = "https://minecraft.smartcal.com.br/InstalarDannysAoT-linux";
-const INSTALLER_WINDOWS_URL = "https://minecraft.smartcal.com.br/InstalarDannysAoT.exe";
+const INSTALLER_LINUX_URL = "https://minecraft.smartcal.com.br/InstalarRPGAnime-linux";
+const INSTALLER_WINDOWS_URL = "https://minecraft.smartcal.com.br/InstalarRPGAnime.exe";
 
 const SHADERS = [
   {
@@ -43,30 +43,33 @@ const SHADERS = [
   },
 ];
 
-// 9 no total: 6 mostrados direto + 3 "top secret" atras do cadeado
-// (SecretMods) — sao os mods novos do reset (Aether/Deeper and Darker) e o
-// Danny's AoT, o carro-chefe do pack.
+// 9 no total: 6 mostrados direto (os pilares RPG/anime do pack) + 3 "top
+// secret" atras do cadeado (SecretMods) — mods reais que sao surpresas
+// divertidas, nao carro-chefe.
 const SECRET_MODS = [
-  { name: "Danny's AoT", tag: "ODM • TITÃS • PARADIS" },
-  { name: "The Aether", tag: "NOVA DIMENSÃO" },
-  { name: "Deeper and Darker", tag: "NOVA DIMENSÃO" },
+  { name: "Roundabout", tag: "JOJO • ORA ORA ORA" },
+  { name: "Mo' Creatures", tag: "BESTIÁRIO CLÁSSICO" },
+  { name: "Craziness Awakened", tag: "ORESPAWN REAWAKENED" },
 ];
 
 const MODS = [
-  { name: "Origins", tag: "ESCOLHA SUA CLASSE" },
-  { name: "Breath of Nichirin", tag: "DEMON SLAYER" },
-  { name: "ThePjotyr's Speedsters", tag: "PODER DE VELOCISTA" },
-  { name: "Sodium + Lithium", tag: "PERFORMANCE" },
-  { name: "Xaero's Minimap + Worldmap", tag: "MAPA" },
-  { name: "Terralith", tag: "EXPLORAÇÃO" },
+  { name: "Epic Fight", tag: "COMBATE ESTILO ANIME" },
+  { name: "L_Ender's Cataclysm", tag: "CHEFES • DIMENSÃO ENDGAME" },
+  { name: "Vampirism", tag: "CAÇADOR OU VAMPIRO" },
+  { name: "Twilight Forest", tag: "DIMENSÃO DE EXPLORAÇÃO" },
+  { name: "Iron's Spells 'n Spellbooks", tag: "MAGIA" },
+  { name: "Ice and Fire", tag: "DRAGÕES E MITOLOGIA" },
 ];
 
-// contagem real de jars em mods/ (server) — independente das linhas do
-// ModCodex (que agrupa, ex: Macaw's = 1 linha representando 8 jars). O
-// catalogo em si (mods/itens/receitas/tutoriais/origins) agora vem do
-// Supabase — ver lib/modcodex/queries.ts.
-const TOTAL_MODS = 105;
-const DOWNLOAD_SIZE = "466 MB";
+// contagem real e conferida: 66 jars em mods/ (servidor) + 10 jars em
+// mods-client-only/ dentro do rpg-anime-modpack.zip = 76 no total.
+// Independente das linhas do ModCodex (que pode agrupar itens de um mesmo
+// mod). O catalogo em si (mods/itens/receitas/tutoriais) vem do Supabase —
+// ver lib/modcodex/queries.ts.
+const SERVER_MODS = 66;
+const CLIENT_ONLY_MODS = 10;
+const TOTAL_MODS = SERVER_MODS + CLIENT_ONLY_MODS;
+const DOWNLOAD_SIZE = "476 MB";
 
 const STEPS = [
   {
@@ -95,14 +98,15 @@ const STEPS = [
       <>
         Clica no botão <Strong>↓ Baixar agora</Strong> lá no topo da página e escolhe o
         instalador do seu sistema (<Strong>Windows</Strong> ou <Strong>Linux</Strong>). Não é o
-        .zip dos mods — é um programinha (<Strong>InstalarDannysAoT</Strong>) que faz tudo
+        .zip dos mods — é um programinha (<Strong>InstalarRPGAnime</Strong>) que faz tudo
         sozinho: baixa o modpack mais atual, instala os mods e o config certos, configura o
-        Fabric na versão certa e já deixa o servidor cadastrado.
+        Forge na versão certa (1.20.1) e já deixa o servidor cadastrado.
       </>
     ),
     tips: [
       "A senha de acesso é a mesma pro modpack e pros instaladores — pede pro Deilton no grupo se não tiver.",
       'Se o antivírus reclamar do executável, é o mesmo alerta genérico de qualquer programa não-assinado — pode liberar.',
+      "Já tinha o pack antigo (Danny's AoT / Fabric) instalado? Sem problema — o instalador detecta e migra sozinho, veja o aviso no topo da página.",
     ],
   },
   {
@@ -116,7 +120,7 @@ const STEPS = [
       </>
     ),
     tips: [
-      "Ele mostra o progresso do download e cada etapa no terminal/console que abrir junto — é normal demorar um pouco na primeira vez (o pacote tem mais de 150 MB).",
+      "Ele mostra o progresso do download e cada etapa no terminal/console que abrir junto — é normal demorar um pouco na primeira vez (o modpack sozinho tem quase 500 MB).",
       'No final aparece "Tudo pronto!" — se aparecer algum "ERRO", tira print e manda no grupo.',
       "Rodar de novo no futuro (quando o modpack for atualizado) é seguro — ele substitui só o que mudou, sem bagunçar nada que você já tinha.",
     ],
@@ -126,10 +130,10 @@ const STEPS = [
     title: "Entre no servidor",
     body: (
       <>
-        Abra o TLauncher, selecione o perfil <Strong>&ldquo;Danny&apos;s AoT&rdquo;</Strong> (o
+        Abra o TLauncher, selecione o perfil <Strong>&ldquo;RPG Anime Modpack&rdquo;</Strong> (o
         instalador já criou ele pra você) → <Strong>Play</Strong>. No jogo:{" "}
         <Strong>Multiplayer</Strong> → o servidor <Code className="text-accent">{SERVER_ADDRESS}</Code>{" "}
-        já deve aparecer pronto na lista.
+        já deve aparecer pronto na lista (como &ldquo;RPG Anime Modpack (beta)&rdquo;).
       </>
     ),
     tips: [
@@ -203,30 +207,62 @@ export default async function Home() {
               {"// PARADIS NODE"}
             </span>
             <span className="flex-1" />
-            <TagPill>MINECRAFT 1.21.1</TagPill>
-            <TagPill>FABRIC</TagPill>
+            <TagPill>MINECRAFT 1.20.1</TagPill>
+            <TagPill>FORGE</TagPill>
           </div>
         </HeroReveal>
+
+        {/* aviso de troca de modpack — quem ja jogava antes precisa ver isso */}
+        <RevealSection className="mt-5">
+          <div
+            className="clip-corner-lg border border-amber-400/45 px-5.5 py-5"
+            style={{ background: "linear-gradient(160deg, rgba(63,49,10,.35), rgba(21,26,22,.7))" }}
+          >
+            <div className="mb-2.5 flex flex-wrap items-center gap-2.5">
+              <span className="animate-pulse-dot h-1.75 w-1.75 rounded-full bg-amber-400" />
+              <span className="text-[11px] font-semibold tracking-[0.2em] text-amber-300 uppercase">
+                ⚠ Modpack trocado — leia antes de jogar
+              </span>
+            </div>
+            <p className="m-0 mb-2 text-[13px] leading-[1.8] text-text/80">
+              Já jogava no servidor antes? O modpack mudou <Strong>por completo</Strong>: saímos
+              do <Strong>Fabric 1.21.1</Strong> pro <Strong>Forge 1.20.1 (build 47.4.10)</Strong>.
+              É uma instalação <Strong>nova e incompatível</Strong> com a antiga — não dá pra só
+              atualizar por cima. Baixe e rode o <Strong>instalador novo</Strong> (botão abaixo);
+              ele detecta o pack antigo automaticamente e migra/faz backup dos arquivos dele
+              sozinho, sem você precisar apagar nada na mão.
+            </p>
+            <p className="m-0 text-[12px] leading-[1.7] text-text/55">
+              Os instaladores antigos (<Code>InstalarDannysAoT-linux</Code> /{" "}
+              <Code>InstalarDannysAoT.exe</Code>) eram do modpack anterior (Fabric,
+              Danny&apos;s AoT) e não recebem mais atualização — a partir de agora use só os
+              botões desta página, que já apontam pro instalador novo (
+              <Code>InstalarRPGAnime</Code>).
+            </p>
+          </div>
+        </RevealSection>
 
         {/* hero */}
         <div className="grid grid-cols-1 items-center gap-9 py-14 md:grid-cols-2">
           <HeroReveal delay={0.05}>
             <div>
               <span className="clip-corner-md animate-flicker-soft mb-5.5 inline-block border border-accent/34 bg-accent-deep/50 px-3 py-1.75 font-semibold text-[10px] tracking-[0.24em] text-accent">
-                ODM GEAR // INITIATED
+                EPIC FIGHT ENGINE // LOADED
               </span>
-              <h1 className="m-0 font-display text-[clamp(50px,9.5vw,104px)] leading-[0.9] tracking-[0.005em] text-ink uppercase">
+              <h1 className="m-0 font-display text-[clamp(42px,7.6vw,88px)] leading-[0.95] tracking-[0.005em] text-ink uppercase">
                 Deilton&apos;s
                 <br />
                 <span className="text-accent drop-shadow-[0_0_34px_rgba(127,214,138,0.35)]">
-                  AoT
+                  RPG Anime
                 </span>{" "}
                 Modpack
               </h1>
-              <p className="mt-6 max-w-[44ch] text-[14px] leading-[1.85] text-text/72">
-                Pensado e construído por <Strong>Deilton</Strong> para o nosso servidor no
-                Paradis. ODM Gear, titãs e a dimensão de Paradis — cada mod e cada config
-                escolhidos pra galera jogar junto.
+              <p className="mt-6 max-w-[46ch] text-[14px] leading-[1.85] text-text/72">
+                Pensado e construído por <Strong>Deilton</Strong> para o nosso servidor. Combate
+                estilo anime com Epic Fight, chefes de fim de jogo com Cataclysm, classes de
+                caçador ou vampiro com Vampirism, magia com Iron&apos;s Spells, dragões com Ice
+                and Fire e uma dimensão inteira pra explorar com Twilight Forest — cada mod
+                escolhido a dedo pra galera jogar junto.
               </p>
 
               <div className="clip-corner-md mt-6.5 border border-accent/20 bg-panel/72 px-5 py-4.5">
@@ -271,8 +307,9 @@ export default async function Home() {
         {/* status badges */}
         <RevealSection className="flex flex-wrap gap-2 pb-6.5">
           <StatusBadge dot="animate-pulse-dot bg-accent">SERVER ONLINE</StatusBadge>
-          <StatusBadge dot="bg-accent-mid">FABRIC 1.21.1</StatusBadge>
+          <StatusBadge dot="bg-accent-mid">FORGE 1.20.1</StatusBadge>
           <StatusBadge dot="bg-accent-dim">{TOTAL_MODS} MODS</StatusBadge>
+          <StatusBadge dot="bg-accent-dim">SHADERS OK (OCULUS)</StatusBadge>
           <StatusBadge dot="bg-accent-dim">PARADIS NODE</StatusBadge>
         </RevealSection>
 
@@ -326,9 +363,11 @@ export default async function Home() {
                 />
                 <div className="flex flex-wrap gap-3.5 text-[10px] tracking-[0.16em] text-text/45">
                   <span>{DOWNLOAD_SIZE}</span>
-                  <span>{TOTAL_MODS} MODS</span>
-                  <span>FABRIC</span>
-                  <span>MINECRAFT 1.21.1</span>
+                  <span>
+                    {TOTAL_MODS} MODS ({SERVER_MODS} servidor + {CLIENT_ONLY_MODS} client-only)
+                  </span>
+                  <span>FORGE</span>
+                  <span>MINECRAFT 1.20.1</span>
                 </div>
               </RevealItem>
             </RevealStagger>
@@ -425,11 +464,13 @@ export default async function Home() {
           </span>
         </RevealSection>
         <p className="mt-0 mb-4 max-w-[70ch] text-[12px] leading-[1.8] text-text/50">
-          O instalador já baixa os 5 junto com o resto — não precisa baixar nada separado.
-          Shader é escolha individual: o servidor nunca processa nada disso (ele nem tem tela
-          pra renderizar), então cada um ativa o que a própria máquina aguenta, sem afetar os
-          outros jogadores. Pra ativar: <Strong>Options</Strong> → <Strong>Video Settings</Strong>{" "}
-          → <Strong>Shader Packs</Strong>, dentro do jogo.
+          Agora funciona de verdade: com <Strong>Oculus + Embeddium</Strong> no lugar do
+          renderizador antigo, testamos os 6 shaderpacks abaixo ao vivo (82 shaders carregados
+          sem crash). O instalador já baixa todos junto com o resto — não precisa baixar nada
+          separado. Shader é escolha individual: o servidor nunca processa nada disso (ele nem
+          tem tela pra renderizar), então cada um ativa o que a própria máquina aguenta, sem
+          afetar os outros jogadores. Pra ativar: <Strong>Options</Strong> →{" "}
+          <Strong>Video Settings</Strong> → <Strong>Shader Packs</Strong>, dentro do jogo.
         </p>
 
         <RevealStagger className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -450,25 +491,34 @@ export default async function Home() {
 
         {/* extras client-only — vem no instalador, mas nunca no servidor */}
         <p className="mt-4 mb-3 text-[11px] tracking-[0.1em] text-text/40 uppercase">
-          Extras client-only — cada um ativa/desativa por conta própria, sem afetar mais ninguém.
+          Extras client-only ({CLIENT_ONLY_MODS} no total) — cada um ativa/desativa por conta
+          própria, sem afetar mais ninguém.
         </p>
         <RevealStagger className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           {[
-            {
-              name: "Distant Horizons",
-              desc: "Renderiza o terreno beeem além do alcance normal, tipo um LOD de horizonte. Ativa em Options → Video Settings → Distant Horizons.",
-            },
             {
               name: "AmbientSounds",
               desc: "Sons ambiente por bioma — vento, grutas, criaturas ao longe. Configurável no próprio menu do mod.",
             },
             {
-              name: "LambDynamicLights",
-              desc: "Tocha ou item brilhante na mão ilumina de verdade, sem precisar colocar bloco.",
+              name: "Chat Heads",
+              desc: "Mostra a cabecinha de quem falou do lado da mensagem no chat.",
             },
             {
-              name: "First-person Model",
-              desc: "Você vê seu próprio corpo e pernas em primeira pessoa, não só as mãos.",
+              name: "BetterF3",
+              desc: "Reformula a tela de debug (F3) padrão do Minecraft numa versão mais legível e customizável.",
+            },
+            {
+              name: "3D Skin Layers",
+              desc: "Renderiza a segunda camada da sua skin (jaqueta, mangas, etc) em 3D de verdade, não achatada.",
+            },
+            {
+              name: "Not Enough Animations",
+              desc: "Adiciona/melhora animações em terceira pessoa (curvar pra pegar item, girar o corpo, etc).",
+            },
+            {
+              name: "Entity Texture/Model Features",
+              desc: "Dá suporte a texturas e modelos customizados de entidade no formato OptiFine (CEM/CIT) — usado pelos resource packs do pack.",
             },
           ].map((extra) => (
             <RevealItem
@@ -498,19 +548,19 @@ export default async function Home() {
             </p>
           </div>
           <div className="border border-accent/18 bg-panel/60 px-5 py-4.5 text-[10px] leading-[2] tracking-[0.16em] text-text/50">
-            <div className="animate-flicker-soft mb-2 text-accent">ODM GEAR // STANDBY</div>
-            GAS: OK
+            <div className="animate-flicker-soft mb-2 text-accent">EPIC FIGHT // STANDBY</div>
+            STAMINA: OK
             <br />
-            BLADES: SHARP
+            GUARD: READY
             <br />
-            HOOKS: READY
+            DODGE: READY
             <br />
-            BUILD: 1.21.1 / FABRIC
+            BUILD: 1.20.1 / FORGE
           </div>
         </RevealSection>
 
         <div className="flex flex-wrap justify-between gap-3.5 border-t border-accent/12 py-4.5 pb-8.5 text-[10px] leading-[1.8] tracking-[0.14em] text-text/38">
-          <span>DEILTON&apos;S AOT MODPACK • MINECRAFT 1.21.1 • FABRIC • {TOTAL_MODS}+ MODS</span>
+          <span>DEILTON&apos;S RPG ANIME MODPACK • MINECRAFT 1.20.1 • FORGE • {TOTAL_MODS} MODS</span>
           <span>
             FEITO POR <span className="text-accent">DEILTON</span> • AGRADECIMENTOS A KEVIN E
             LUCAS

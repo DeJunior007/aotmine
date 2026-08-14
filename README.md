@@ -1,6 +1,7 @@
-# Deilton's AoT Modpack — Download
+# Deilton's RPG Anime Modpack — Download
 
-Página de download do modpack do servidor Danny's AoT, migrada do design original
+Página de download do modpack RPG/anime do servidor (Forge 1.20.1, 76 mods — trocou
+por completo a partir do antigo Danny's AoT/Fabric), migrada do design original
 (Claude Design, `.dc.html`) para Next.js + Tailwind CSS v4 + Framer Motion.
 
 ## Stack
@@ -43,5 +44,7 @@ volume de dados pequeno, sem necessidade de busca full-text no Postgres).
 ## Origem do design
 Convertido a partir do projeto Claude Design "Danny's AoT Modpack Download"
 (`Download Modpack v2.dc.html`), preservando a identidade visual original
-(tema "Wings of Freedom" — verde monocromático, fonte Anton, paineis com cantos cortados)
-e adicionando animações via Framer Motion.
+(verde monocromático, fonte Anton, paineis com cantos cortados) e adicionando
+animações via Framer Motion. O conteúdo/marketing foi reescrito quando o
+servidor trocou de modpack (Fabric/Danny's AoT → Forge 1.20.1/RPG Anime Modpack);
+o visual em si não mudou.

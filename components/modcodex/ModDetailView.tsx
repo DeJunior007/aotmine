@@ -166,10 +166,11 @@ export function ModDetailView({
         </DetailSection>
       )}
 
-      {!hasDeepContent && mod.tips.length === 0 && (
+      {!hasDeepContent && mod.tips.length === 0 && mod.getting_started_steps.length === 0 && (
         <p className="m-0 text-[11px] leading-[1.6] text-text/35">
-          Biblioteca de suporte — não precisa mexer nela, só faz o resto do modpack funcionar por
-          baixo dos panos.
+          {mod.category === "bibliotecas"
+            ? "Biblioteca de suporte — não precisa mexer nela, só faz o resto do modpack funcionar por baixo dos panos."
+            : "Ainda sem conteúdo detalhado no ModCodex (receitas/tutoriais). O mod funciona normal no pack — essa página só ainda não foi documentada a fundo."}
         </p>
       )}
     </div>
